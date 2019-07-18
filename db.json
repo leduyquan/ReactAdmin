@@ -1,0 +1,94 @@
+{
+  "objects": [
+    {
+      "id": 1,
+      "title": "sunt au"
+    },
+    {
+      "id": 2,
+      "title": "gfdri optio r"
+    }
+  ],
+  "languages": [
+    {
+      "id": 1,
+      "title": "sunt au"
+    },
+    {
+      "id": 2,
+      "title": "gfdri optio r"
+    }
+  ],
+  "places": [
+    {
+      "id": 1,
+      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "gfdri optio reprehenderit",
+      "body": "gta et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+      "userId": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Antonette Tin Tin",
+      "username": "Antonette",
+      "email": "anastasia@melissa.tv",
+      "address": {
+        "street": "Victor Plains",
+        "suite": "Suite 879",
+        "city": "Wisokyburgh",
+        "zipcode": "90566-7771",
+        "geo": {
+          "lat": "-43.9509",
+          "lng": "-34.4618"
+        }
+      },
+      "phone": "010-692-",
+      "website": "anastasia.net",
+      "company": {
+        "name": "Deckow-Crist",
+        "catchPhrase": "Proactive didactic contingency",
+        "bs": "synergize scalable supply-chains"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Ervin Howell",
+      "username": "Antonette",
+      "email": "Shanna@melissa.tv",
+      "address": {
+        "street": "Victor Plains",
+        "suite": "Suite 879",
+        "city": "Wisokyburgh",
+        "zipcode": "90566-7771",
+        "geo": {
+          "lat": "-43.9509",
+          "lng": "-34.4618"
+        }
+      },
+      "phone": "010-692-6593 x09125",
+      "website": "anastasia.net",
+      "company": {
+        "name": "Deckow-Crist",
+        "catchPhrase": "Proactive didactic contingency",
+        "bs": "synergize scalable supply-chains"
+      }
+    },
+    {
+      "name": "Quan Email Duy",
+      "email": "quanld@gmail.com",
+      "address": {
+        "street": "30/4"
+      },
+      "phone": "134545666",
+      "username": "zdsa",
+      "id": 4
+    }
+  ]
+}
