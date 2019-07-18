@@ -1,16 +1,22 @@
 import React from 'react';
-import { List, Datagrid, TextField, ReferenceField, EditButton } from 'react-admin';
+import { Filter, SearchInput, List, Datagrid, TextField, ReferenceField, EditButton } from 'react-admin';
+
+const PlaceFilter = props => (
+    <Filter {...props}>
+        <SearchInput source="q" alwaysOn />
+    </Filter>
+)
 
 const PlaceList = props => (
-    <List {...props}>
+    <List filters={<PlaceFilter />} {...props}>
         <Datagrid>
-          <TextField source="id" />
+            <TextField source="id" />
             <ReferenceField source="userId" reference="users">
                 <TextField source="name" />
             </ReferenceField>
-            
+
             <TextField source="title" />
-            <EditButton/>
+            <EditButton />
         </Datagrid>
     </List>
 );
