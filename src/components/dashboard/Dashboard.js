@@ -6,7 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 const Dashboard = () => (
   <Card>
     <CardHeader title="Welcome to the administration" />
-    <CardContent>The Administration will be able to show, add, edit, and delete information about User, Place, Object and Language</CardContent>
+    <CardContent>The Administration will be able to show, add, edit, and delete information about Users, Places, Objects and Languages.</CardContent>
   </Card>
 );
 

@@ -1,11 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 import {
   Create,
-  LongTextInput,
-  ReferenceInput,
-  SelectInput,
   SimpleForm,
   TextInput,
 } from 'react-admin';

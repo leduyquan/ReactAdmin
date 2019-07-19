@@ -3,9 +3,7 @@ import {
   SimpleForm,
   DisabledInput,
   Edit,
-  TextInput,
-  LongTextInput,
-  TabbedForm
+  LongTextInput
 } from 'react-admin';
 import LanguageTitle from './LanguageTitle';
 

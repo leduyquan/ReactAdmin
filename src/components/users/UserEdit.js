@@ -4,8 +4,7 @@ import {
   DisabledInput,
   Edit,
   TextInput,
-  LongTextInput,
-  TabbedForm
+  LongTextInput
 } from 'react-admin';
 import UserTitle from './UserTitle';
 

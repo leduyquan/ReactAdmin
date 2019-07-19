@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter, TextInput, SearchInput, List, Datagrid, TextField, EmailField, EditButton } from 'react-admin';
+import { Filter, SearchInput, List, Datagrid, TextField, EmailField, EditButton } from 'react-admin';
 
 const UserFilter = props => (
   <Filter {...props}>

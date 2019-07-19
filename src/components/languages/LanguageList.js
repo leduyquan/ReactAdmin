@@ -1,8 +1,14 @@
 import React from 'react';
-import { List, Datagrid, TextField, ReferenceField, EditButton } from 'react-admin';
+import { Filter, SearchInput, List, Datagrid, TextField, EditButton } from 'react-admin';
+
+const LanguageFilter = props => (
+    <Filter {...props}>
+        <SearchInput source="q" alwaysOn />
+    </Filter>
+)
 
 const LanguageList = props => (
-    <List {...props}>
+    <List filters={<LanguageFilter />} {...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
