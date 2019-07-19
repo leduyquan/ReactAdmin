@@ -1,25 +1,38 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR } from 'react-admin';
+import {
+    AUTH_LOGIN,
+    AUTH_LOGOUT,
+    AUTH_ERROR,
+    AUTH_CHECK,
+} from 'react-admin'; // eslint-disable-line import/no-unresolved
 
+// Authenticatd by default
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username, password } = params;
-        localStorage.setItem('username', username);
-        // accept all username/password combinations
-        if (username === 'admin' && password === '12345678x@X')
+        if (username === 'admin' && password === '12345678x@X') {
+            localStorage.setItem('role', 'admin');
+            localStorage.removeItem('not_authenticated');
             return Promise.resolve();
-        else return Promise.reject();
+        }
+        localStorage.setItem('not_authenticated', true);
+        return Promise.reject();
     }
     if (type === AUTH_LOGOUT) {
-        localStorage.removeItem('username');
+        localStorage.setItem('not_authenticated', true);
+        localStorage.removeItem('role');
         return Promise.resolve();
     }
     if (type === AUTH_ERROR) {
-        return Promise.resolve();
+        const { status } = params;
+        return status === 401 || status === 403
+            ? Promise.reject()
+            : Promise.resolve();
     }
     if (type === AUTH_CHECK) {
-        return localStorage.getItem('username')
-            ? Promise.resolve()
-            : Promise.reject();
+        return localStorage.getItem('not_authenticated')
+            ? Promise.reject()
+            : Promise.resolve();
     }
-    return Promise.reject('Unkown method');
+
+    return Promise.reject('Unknown method');
 };
