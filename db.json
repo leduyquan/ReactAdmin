@@ -2,7 +2,7 @@
   "objects": [
     {
       "id": 1,
-      "title": "sunt au"
+      "title": "sunt auhjgh123"
     },
     {
       "id": 2,
@@ -15,6 +15,14 @@
     {
       "title": "lelrgfdgsfds",
       "id": 4
+    },
+    {
+      "title": "3251321",
+      "id": 5
+    },
+    {
+      "title": "78979",
+      "id": 6
     }
   ],
   "languages": [
@@ -31,104 +39,6 @@
       "id": 3
     }
   ],
-  "places": [
-    {
-      "id": 2,
-      "title": "gfdri optio reprehenderitfdsf",
-      "body": "gta et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-      "userId": 1
-    },
-    {
-      "userId": 4,
-      "title": "hoang",
-      "id": 3
-    },
-    {
-      "userId": 2,
-      "title": "hjvhj",
-      "id": 4
-    },
-    {
-      "userId": 4,
-      "title": "gasdsa",
-      "id": 5
-    },
-    {
-      "userId": 1,
-      "title": "hgadfdsa",
-      "id": 6
-    },
-    {
-      "userId": 1,
-      "title": "gfdasgfdsafas",
-      "id": 7
-    }
-  ],
-  "users": [
-    {
-      "id": 1,
-      "name": "Antonette",
-      "username": "Antonette",
-      "email": "anastasia@melissa.tv",
-      "address": {
-        "street": "Victor Plains",
-        "suite": "Suite 879",
-        "city": "Wisokyburgh",
-        "zipcode": "90566-7771",
-        "geo": {
-          "lat": "-43.9509",
-          "lng": "-34.4618"
-        }
-      },
-      "phone": "010-692-",
-      "website": "anastasia.net",
-      "company": {
-        "name": "Deckow-Crist",
-        "catchPhrase": "Proactive didactic contingency",
-        "bs": "synergize scalable supply-chains"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Ervin Howell",
-      "username": "Antonette",
-      "email": "Shanna@melissa.tv",
-      "address": {
-        "street": "Victor Plains",
-        "suite": "Suite 879",
-        "city": "Wisokyburgh",
-        "zipcode": "90566-7771",
-        "geo": {
-          "lat": "-43.9509",
-          "lng": "-34.4618"
-        }
-      },
-      "phone": "010-692-6593 x09125",
-      "website": "anastasia.net",
-      "company": {
-        "name": "Deckow-Crist",
-        "catchPhrase": "Proactive didactic contingency",
-        "bs": "synergize scalable supply-chains"
-      }
-    },
-    {
-      "name": "Quan Email Duy",
-      "email": "quanld@gmail.com",
-      "address": {
-        "street": "30/4"
-      },
-      "phone": "134545666",
-      "username": "zdsa",
-      "id": 4
-    },
-    {
-      "name": "Quan",
-      "address": {
-        "street": "So 35, Nguyen Hue, Duong Dong"
-      },
-      "phone": "1636040056",
-      "username": "lili",
-      "id": 5
-    }
-  ]
+  "places": [],
+  "users": []
 }

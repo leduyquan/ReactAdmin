@@ -6,6 +6,7 @@ import {
     CREATE,
     UPDATE,
     DELETE,
+    DELETE_MANY,
     fetchUtils,
 } from 'react-admin';
 import { stringify } from 'query-string';
@@ -37,11 +38,16 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
             const { page, perPage } = params.pagination;
             const { field, order } = params.sort;
             const query = {
-                sort: JSON.stringify([field, order]),
-                range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-                filter: JSON.stringify(params.filter),
+                _start: (page - 1) * perPage,
+                _end: page * perPage,
+                _sort: field,
+                _order: order,
+                q: params.filter.q,
             };
-            return { url: `${API_URL}/${resource}?${stringify(query)}` };
+            return {
+                url: `${API_URL}/${resource}?${stringify(query)}`,
+                urlTotal: `${API_URL}/${resource}`
+            };
         }
         case GET_ONE:
             return { url: `${API_URL}/${resource}/${params.id}` };
@@ -76,22 +82,33 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
                 url: `${API_URL}/${resource}/${params.id}`,
                 options: { method: 'DELETE' },
             };
+
+        case DELETE_MANY:
+            return {
+                url: `${API_URL}/${resource}`,
+                options: { method: 'DELETE' },
+            }
+
         default:
             throw new Error(`Unsupported fetch action type ${type}`);
     }
 };
 
-const convertHTTPResponseToDataProvider = (response, type, params) => {
+const convertHTTPResponseToDataProvider = (response, responseTotal, type, params) => {
     const { json } = response;
     switch (type) {
         case GET_LIST:
             return {
                 data: json.map(x => x),
-                total: json.length
-                // total: parseInt(headers.get('content-range').split('/').pop(), 10),
+                total: responseTotal.json.length
             };
         case CREATE:
             return { data: { ...params.data, id: json.id } };
+        case DELETE:
+            return { data: { id: null } };
+        case DELETE_MANY:
+            console.log('fdfdfdday ne', { data: [] })
+            return { data: [] };
         default:
             return { data: json };
     }
@@ -100,7 +117,22 @@ const convertHTTPResponseToDataProvider = (response, type, params) => {
 export default (type, resource, params) => {
     const { fetchJson } = fetchUtils;
     const resourceAPI = getResource(resource);
-    const { url, options } = convertDataProviderRequestToHTTP(type, resourceAPI, params);
+    const { url, urlTotal, options } = convertDataProviderRequestToHTTP(type, resourceAPI, params);
+
+    if (type === 'DELETE_MANY') {
+        console.log(' params', params.ids)
+        return params.ids.map(id => fetchJson(`${url}/${id}`, options)
+            .then(response => convertHTTPResponseToDataProvider(response, null, type, params))
+        )
+    }
+
     return fetchJson(url, options)
-        .then(response => convertHTTPResponseToDataProvider(response, type, params));
+        .then(response =>
+            (type === 'GET_LIST') ?
+                fetchJson(urlTotal, options)
+                    .then(responseTotal => (
+                        convertHTTPResponseToDataProvider(response, responseTotal, type, params)
+                    ))
+                : convertHTTPResponseToDataProvider(response, null, type, params)
+        );
 };
