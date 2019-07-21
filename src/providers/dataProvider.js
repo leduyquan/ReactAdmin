@@ -44,10 +44,7 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
                 _order: order,
                 q: params.filter.q,
             };
-            return {
-                url: `${API_URL}/${resource}?${stringify(query)}`,
-                urlTotal: `${API_URL}/${resource}`
-            };
+            return { url: `${API_URL}/${resource}?${stringify(query)}` };
         }
         case GET_ONE:
             return { url: `${API_URL}/${resource}/${params.id}` };
@@ -94,13 +91,13 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
     }
 };
 
-const convertHTTPResponseToDataProvider = (response, responseTotal, type, params) => {
-    const { json } = response;
+const convertHTTPResponseToDataProvider = (response, type, params) => {
+    const { headers, json } = response;
     switch (type) {
         case GET_LIST:
             return {
                 data: json.map(x => x),
-                total: responseTotal.json.length
+                total: parseInt(headers.get('X-Total-Count'))
             };
         case CREATE:
             return { data: { ...params.data, id: json.id } };
@@ -117,22 +114,15 @@ const convertHTTPResponseToDataProvider = (response, responseTotal, type, params
 export default (type, resource, params) => {
     const { fetchJson } = fetchUtils;
     const resourceAPI = getResource(resource);
-    const { url, urlTotal, options } = convertDataProviderRequestToHTTP(type, resourceAPI, params);
+    const { url, options } = convertDataProviderRequestToHTTP(type, resourceAPI, params);
 
     if (type === 'DELETE_MANY') {
         console.log(' params', params.ids)
         return params.ids.map(id => fetchJson(`${url}/${id}`, options)
-            .then(response => convertHTTPResponseToDataProvider(response, null, type, params))
+            .then(response => convertHTTPResponseToDataProvider(response, type, params))
         )
     }
 
     return fetchJson(url, options)
-        .then(response =>
-            (type === 'GET_LIST') ?
-                fetchJson(urlTotal, options)
-                    .then(responseTotal => (
-                        convertHTTPResponseToDataProvider(response, responseTotal, type, params)
-                    ))
-                : convertHTTPResponseToDataProvider(response, null, type, params)
-        );
+        .then(response => convertHTTPResponseToDataProvider(response, type, params));
 };
