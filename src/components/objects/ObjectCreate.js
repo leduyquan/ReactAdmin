@@ -2,14 +2,23 @@ import React from 'react';
 
 import {
   Create,
-  LongTextInput,
+  TextInput,
   SimpleForm,
+  ArrayInput,
+  SimpleFormIterator,
+  required
 } from 'react-admin';
 
 const ObjectCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <LongTextInput source="title" />
+      <TextInput source="code" validate={required()} />
+      <TextInput source="regionCode" validate={required()} />
+      <ArrayInput source="images">
+        <SimpleFormIterator>
+          <TextInput source="url"/>
+        </SimpleFormIterator>
+      </ArrayInput>
     </SimpleForm>
   </Create>
 );

@@ -48,28 +48,35 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
             return { url: `${API_URL}/${resource}?${stringify(query)}` };
         }
         case UPDATE: {
-            let bodyRequest = null;
-            if (resource === 'places/update') {
+            let bodyRequest = params.data;
+            if (resource === 'places/update' || resource === 'objects') {
                 bodyRequest = {
                     ...params.data,
                     images: convertArrayObjectToString(params.data.images)
                 };
-            } else bodyRequest = params.data;
+            }
             return {
                 url: `${API_URL}/${resource}/${params.id}`,
                 options: { method: 'PUT', body: JSON.stringify(bodyRequest) },
             };
         }
         case CREATE: {
-            let bodyRequest = null;
+            let bodyRequest = params.data;
             if (resource === 'places/create') {
                 bodyRequest = {
                     ...params.data,
                     images: convertArrayObjectToString(params.data.images),
                     ...fakePostPlace
                 };
-            } else bodyRequest = params.data;
-            console.log('bodyRequest', bodyRequest)
+            }
+            if (resource === 'objects') {
+                bodyRequest = {
+                    ...params.data,
+                    images: convertArrayObjectToString(params.data.images),
+                    ...fakePostObject
+                };
+            }
+
             return {
                 url: `${API_URL}/${resource}`,
                 options: { method: 'POST', body: JSON.stringify(bodyRequest) },
@@ -97,7 +104,7 @@ const convertHTTPResponseToDataProvider = (response, type, params, resourceAPI) 
 
     switch (type) {
         case GET_LIST:
-            if (resourceAPI === 'places') {
+            if (resourceAPI === 'places' || resourceAPI === 'objects') {
                 return {
                     data: json.data.map(x => ({ ...x, images: convertArrayStringToObject(x.images) })),
                     total: parseInt(headers.get('X-Total-Count'))
@@ -112,15 +119,20 @@ const convertHTTPResponseToDataProvider = (response, type, params, resourceAPI) 
         case DELETE:
             return { data: { id: null } };
         case DELETE_MANY:
-            //console.log('fdfdfdday ne', { data: [] })
             return { data: [] };
+        case GET_ONE: {
+            if (resourceAPI === 'places/info' || resourceAPI === 'objects/info') {
+                return { data: { ...json.data, images: convertArrayStringToObject(json.data.images) } };
+            }
+            return { data: { ...json.data } };
+        }
+        case UPDATE: {
+            if (resourceAPI === 'places/update' || resourceAPI === 'objects') {
+                return { data: { ...json.data, images: convertArrayStringToObject(json.data.images) } };
+            }
+            return { data: { ...json.data } };
+        }
         default:
-            if (resourceAPI === 'places/info') {
-                return { data: { ...json.data, images: convertArrayStringToObject(json.data.images) } };
-            }
-            if (resourceAPI === 'places/update') {
-                return { data: { ...json.data, images: convertArrayStringToObject(json.data.images) } };
-            }
             return { data: { ...json.data } };
     }
 };
@@ -128,16 +140,13 @@ const convertHTTPResponseToDataProvider = (response, type, params, resourceAPI) 
 export default (type, resource, params) => {
     const { fetchJson } = fetchUtils;
     const resourceAPI = getResource(type, resource);
-    console.log('resourceAPI', resourceAPI)
     const { url, options } = convertDataProviderRequestToHTTP(type, resourceAPI, params);
 
     if (type === 'DELETE_MANY') {
-        console.log(' params', params.ids)
         return params.ids.map(id => fetchJson(`${url}/${id}`, options)
             .then(response => convertHTTPResponseToDataProvider(response, type, params, resourceAPI))
         )
     }
-    console.log('url', url)
 
     return fetchJson(url, options)
         .then(response => convertHTTPResponseToDataProvider(response, type, params, resourceAPI));
@@ -153,6 +162,17 @@ const convertArrayStringToObject = (array) => {
     let result = [];
     array.map(x => result.push({ url: x }));
     return result;
+}
+
+const fakePostObject = {
+    translations: [{
+        languageCode: "vi",
+        title: "Object ABC",
+        address: "Đường Văn Thánh",
+        shortDescription: "Dưới triều nhà Nguyễni",
+        audio: "",
+        video: "/resources/places/VanMieuHue/translations/vi/videos/video.mp4"
+    }]
 }
 
 const fakePostPlace = {
@@ -207,7 +227,7 @@ const getResource = (type, resource) => {
                     return 'languages';
 
                 case 'objects':
-                    return 'objects';
+                    return 'objects/info';
 
                 default:
                     throw new Error(`Unknown resource ${resource}`);

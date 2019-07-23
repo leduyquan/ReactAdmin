@@ -13,7 +13,7 @@ const LanguageEdit = props => (
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="code" validate={required()} />
-      <TextInput source="title" />
+      <TextInput source="title" validate={required()} />
     </SimpleForm>
   </Edit>
 );
