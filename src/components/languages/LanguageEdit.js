@@ -3,7 +3,8 @@ import {
   SimpleForm,
   DisabledInput,
   Edit,
-  LongTextInput
+  TextInput,
+  required
 } from 'react-admin';
 import LanguageTitle from './LanguageTitle';
 
@@ -11,7 +12,8 @@ const LanguageEdit = props => (
   <Edit title={<LanguageTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
-      <LongTextInput source="title" />
+      <TextInput source="code" validate={required()} />
+      <TextInput source="title" />
     </SimpleForm>
   </Edit>
 );

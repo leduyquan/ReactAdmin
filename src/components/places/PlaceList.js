@@ -1,5 +1,6 @@
 import React from 'react';
-import { Filter, SearchInput, List, Datagrid, TextField, ReferenceField, EditButton } from 'react-admin';
+import { Filter, SearchInput, List, Datagrid, TextField, ReferenceField, EditButton, ArrayField, UrlField, SingleFieldList } from 'react-admin';
+import ShortTextField from '../../common/shortTextField'
 
 const PlaceFilter = props => (
     <Filter {...props}>
@@ -10,12 +11,18 @@ const PlaceFilter = props => (
 const PlaceList = props => (
     <List filters={<PlaceFilter />} {...props}>
         <Datagrid>
-            <TextField source="id" />
-            <ReferenceField source="userId" reference="users">
-                <TextField source="name" />
-            </ReferenceField>
-
-            <TextField source="title" />
+            <TextField label="Name" source="translations[0].title" />
+            <TextField source="code" />
+            <ShortTextField source="makerIcon" length={30}/>
+            <ShortTextField source="thumbnail" length={30}/>
+            <ArrayField source="images">
+                <Datagrid>
+                    <ShortTextField source="url" length={50}/>
+                </Datagrid>
+            </ArrayField>
+            <TextField source="subType" />
+            <TextField source="type" />
+            <TextField source="owner" />
             <EditButton />
         </Datagrid>
     </List>

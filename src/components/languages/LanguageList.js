@@ -11,6 +11,7 @@ const LanguageList = props => (
     <List filters={<LanguageFilter />} {...props}>
         <Datagrid>
             <TextField source="id" />
+            <TextField source="code" />
             <TextField source="title" />
             <EditButton />
         </Datagrid>

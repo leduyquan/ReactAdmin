@@ -4,16 +4,19 @@ import {
   Create,
   SimpleForm,
   TextInput,
+  LongTextInput
 } from 'react-admin';
 
 const UserCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" />
+      <TextInput source="firstName" />
+      <TextInput source="lastName" />
       <TextInput source="username" />
       <TextInput source="email" />
-      <TextInput label="address" source="address.street" />
-      <TextInput source="phone" />
+      <TextInput source="role" />
+      <LongTextInput source="userImage" />
+      <LongTextInput source="facebook" />
     </SimpleForm>
   </Create>
 );

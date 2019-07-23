@@ -71,7 +71,34 @@
       "id": 6
     }
   ],
-  "places": [],
+  "places": [
+    {
+      "code": "779246",
+      "markerIcon": "gdfag",
+      "thumbnail": "gfdaga",
+      "images": [
+        "àdgfds",
+        "gfdsgds"
+      ],
+      "subType": "gfdsgdf",
+      "type": "gfdsgfds",
+      "owner": "gfds",
+      "id": 1
+    },
+    {
+      "code": "779246",
+      "markerIcon": "abc",
+      "thumbnail": "abc",
+      "images": [
+        "àdgfds",
+        "gfdsgds"
+      ],
+      "subType": "fdsa",
+      "type": "gfda",
+      "owner": "gfa",
+      "id": 2
+    }
+  ],
   "users": [
     {
       "name": "Quan",
@@ -81,6 +108,16 @@
       "phone": "1636040056",
       "username": "aa",
       "id": 1
+    },
+    {
+      "firstName": "Quan",
+      "lastName": "Duy",
+      "email": "quanld@gmail.com",
+      "username": "ldquan",
+      "role": "Endfdsaf",
+      "userImage": "https://orangetheoryfitness.invisionapp.com/d/main/#/loading",
+      "facebook": "https://orangetheoryfitness.invisionapp.com/d/main/#/loadinghttps://orangetheoryfitness.invisionapp.com/d/main/#/loading",
+      "id": 2
     }
   ]
 }

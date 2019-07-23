@@ -12,9 +12,13 @@ const UserEdit = props => (
   <Edit title={<UserTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
-      <TextInput source="name" />
-      <LongTextInput source="address.street" />
-      <LongTextInput source="phone" />
+      <TextInput source="firstName" />
+      <TextInput source="lastName" />
+      <TextInput source="username" />
+      <TextInput source="email" />
+      <TextInput source="role" />
+      <LongTextInput source="userImage" />
+      <LongTextInput source="facebook" />
     </SimpleForm>
   </Edit>
 );
