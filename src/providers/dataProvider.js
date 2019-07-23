@@ -9,10 +9,11 @@ import {
     DELETE_MANY,
     fetchUtils,
 } from 'react-admin';
+import { AppConstant } from './constants';
 import { stringify } from 'query-string';
 
 //const API_URL = 'http://localhost:8000';
-const API_URL = 'http://10.1.0.33:8088/v2';
+const API_URL = AppConstant.API_URL;
 
 const convertDataProviderRequestToHTTP = (type, resource, params) => {
     switch (type) {
@@ -46,11 +47,19 @@ const convertDataProviderRequestToHTTP = (type, resource, params) => {
             };
             return { url: `${API_URL}/${resource}?${stringify(query)}` };
         }
-        case UPDATE:
+        case UPDATE: {
+            let bodyRequest = null;
+            if (resource === 'places/update') {
+                bodyRequest = {
+                    ...params.data,
+                    images: convertArrayObjectToString(params.data.images)
+                };
+            } else bodyRequest = params.data;
             return {
                 url: `${API_URL}/${resource}/${params.id}`,
-                options: { method: 'PUT', body: JSON.stringify(params.data) },
+                options: { method: 'PUT', body: JSON.stringify(bodyRequest) },
             };
+        }
         case CREATE: {
             let bodyRequest = null;
             if (resource === 'places/create') {
@@ -109,6 +118,9 @@ const convertHTTPResponseToDataProvider = (response, type, params, resourceAPI) 
             if (resourceAPI === 'places/info') {
                 return { data: { ...json.data, images: convertArrayStringToObject(json.data.images) } };
             }
+            if (resourceAPI === 'places/update') {
+                return { data: { ...json.data, images: convertArrayStringToObject(json.data.images) } };
+            }
             return { data: { ...json.data } };
     }
 };
@@ -118,7 +130,6 @@ export default (type, resource, params) => {
     const resourceAPI = getResource(type, resource);
     console.log('resourceAPI', resourceAPI)
     const { url, options } = convertDataProviderRequestToHTTP(type, resourceAPI, params);
-
 
     if (type === 'DELETE_MANY') {
         console.log(' params', params.ids)
@@ -245,7 +256,7 @@ const getResource = (type, resource) => {
                     return 'users';
 
                 case 'places':
-                    return 'places';
+                    return 'places/update';
 
                 case 'languages':
                     return 'languages';

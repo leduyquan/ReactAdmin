@@ -3,19 +3,27 @@ import {
     AUTH_LOGOUT,
     AUTH_ERROR,
     AUTH_CHECK,
+    fetchUtils,
 } from 'react-admin'; // eslint-disable-line import/no-unresolved
+import { AppConstant } from './constants';
 
 // Authenticatd by default
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username, password } = params;
-        if (username === 'admin' && password === '12345678x@X') {
-            localStorage.setItem('role', 'admin');
-            localStorage.removeItem('not_authenticated');
-            return Promise.resolve();
-        }
-        localStorage.setItem('not_authenticated', true);
-        return Promise.reject();
+        const { fetchJson } = fetchUtils;
+        const urlLogin = `${AppConstant.API_URL}/users/login`;
+        const bodyRequest = { email: username, password: password }
+        const options = { method: 'POST', body: JSON.stringify(bodyRequest) };
+        return fetchJson(urlLogin, options)
+            .then(response => {
+                localStorage.setItem('role', 'admin');
+                localStorage.removeItem('not_authenticated');
+                return Promise.resolve();
+            }).catch(err => {
+                localStorage.setItem('not_authenticated', true);
+                return Promise.reject();
+            });;
     }
     if (type === AUTH_LOGOUT) {
         localStorage.setItem('not_authenticated', true);
