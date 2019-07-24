@@ -5,16 +5,18 @@ import objects from './components/objects';
 import languages from './components/languages';
 import dashboard from './components/dashboard';
 import authProvider from './providers/authProvider';
-import dataProvider from './providers/dataProvider';
+//import dataProvider from './providers/dataProvider';
 import myDataProvider from './providers/myDataProvider';
 import server from 'ra-data-json-server'
 import { Admin, Resource } from 'react-admin';
+import { AppConstant } from "./providers/constants";
 import './App.css';
 
 
+const dataProvider = myDataProvider(AppConstant.API_URL);
 //const dataProvider = server('http://localhost:8000')
 const App = () => (
-  <Admin dashboard={dashboard} authProvider={authProvider} dataProvider={myDataProvider}>
+  <Admin dashboard={dashboard} authProvider={authProvider} dataProvider={dataProvider}>
     <Resource name="users" {...users} />
     <Resource name="places" {...places} />
     <Resource name="objects" {...objects} />
