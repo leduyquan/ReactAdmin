@@ -6,6 +6,7 @@ import languages from './components/languages';
 import dashboard from './components/dashboard';
 import authProvider from './providers/authProvider';
 import dataProvider from './providers/dataProvider';
+import myDataProvider from './providers/myDataProvider';
 import server from 'ra-data-json-server'
 import { Admin, Resource } from 'react-admin';
 import './App.css';
@@ -13,7 +14,7 @@ import './App.css';
 
 //const dataProvider = server('http://localhost:8000')
 const App = () => (
-  <Admin dashboard={dashboard} authProvider={authProvider} dataProvider={dataProvider}>
+  <Admin dashboard={dashboard} authProvider={authProvider} dataProvider={myDataProvider}>
     <Resource name="users" {...users} />
     <Resource name="places" {...places} />
     <Resource name="objects" {...objects} />

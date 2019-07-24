@@ -10,7 +10,7 @@ import { AppConstant } from './constants';
 // Authenticatd by default
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
-        const { username, password } = params;
+        const { username, password, token } = params;
         const { fetchJson } = fetchUtils;
         const urlLogin = `${AppConstant.API_URL}/users/login`;
         const bodyRequest = { email: username, password: password }
@@ -18,6 +18,7 @@ export default (type, params) => {
         return fetchJson(urlLogin, options)
             .then(response => {
                 localStorage.setItem('role', 'admin');
+                localStorage.setItem('token', response.json.token);
                 localStorage.removeItem('not_authenticated');
                 return Promise.resolve();
             }).catch(err => {
@@ -28,6 +29,7 @@ export default (type, params) => {
     if (type === AUTH_LOGOUT) {
         localStorage.setItem('not_authenticated', true);
         localStorage.removeItem('role');
+        localStorage.removeItem('token');
         return Promise.resolve();
     }
     if (type === AUTH_ERROR) {
