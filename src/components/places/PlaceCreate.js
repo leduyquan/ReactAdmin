@@ -17,15 +17,7 @@ import PlaceTitle from './PlaceTitle';
 const PlaceCreate = props => (
   <Create title={<PlaceTitle type="Create" />} {...props}>
     <SimpleForm>
-      <TextInput source="code" validate={required()} />
-      <LongTextInput source="makerIcon" />
-      <LongTextInput source="thumbnail" />
-      {/* <ArrayInput source="images">
-        <SimpleFormIterator>
-          <TextInput source="url"/>
-        </SimpleFormIterator>
-      </ArrayInput> */}
-      <TextInput source="subType" />
+      <TextInput label="Name" source="translations[0].title" validate={required()} />
       <TextInput source="type" />
       <TextInput source="owner" />
     </SimpleForm>
