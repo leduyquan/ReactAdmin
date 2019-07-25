@@ -3,15 +3,9 @@ import React from 'react';
 import {
   Create,
   TextInput,
-  LongTextInput,
-  ArrayInput,
-  ReferenceInput,
-  SimpleFormIterator,
-  SelectInput,
   SimpleForm,
   required
 } from 'react-admin';
-import PureChipField from '../../common/simpleArray'
 import PlaceTitle from './PlaceTitle';
 
 const PlaceCreate = props => (
