@@ -20,6 +20,8 @@ const PlaceCreate = props => (
       <TextInput label="Name" source="translations[0].title" validate={required()} />
       <TextInput source="code" validate={required()} />
       <TextInput source="type" validate={required()} />
+      <TextInput source="subType" validate={required()} />
+      <TextInput source="owner" />
     </SimpleForm>
   </Create>
 );

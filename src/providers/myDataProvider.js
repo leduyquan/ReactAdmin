@@ -45,6 +45,7 @@ export default function (apiUrl, httpClient = fetchUtils.fetchJson) {
             }
 
             case GET_ONE:
+                console.log('params', params)
                 url = `${apiUrl}/${resource}/${params.id}`;
                 break;
 
@@ -106,7 +107,7 @@ export default function (apiUrl, httpClient = fetchUtils.fetchJson) {
                 };
 
             case CREATE:
-                return { data: { ...params.data, id: json.id } };
+                return { data: { ...params.data, id: json.data.id } };
 
             case DELETE:
                 return { data: { id: null } };

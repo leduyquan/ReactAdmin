@@ -14,8 +14,6 @@ const PlaceList = props => (
         <Datagrid>
             <TextField label="Name" source="translations[0].title" />
             <TextField source="code" />
-            <ShortTextField source="makerIcon" length={30}/>
-            <ShortTextField source="thumbnail" length={30}/>
             {/* <ArrayField source="images">
                 <Datagrid>
                     <ShortTextField source="url" length={50}/>
