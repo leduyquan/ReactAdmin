@@ -26,13 +26,13 @@ export default function (apiUrl, httpClient = fetchUtils.fetchJson) {
                 const { field, order } = params.sort;
                 const query = {
                     ...fetchUtils.flattenObject(params.filter),
-                    _sort: field,
-                    _order: order,
-                    _start: (page - 1) * perPage,
-                    _end: page * perPage
+                    sort: field,
+                    order: order,
+                    page: page,
+                    perPage: perPage
                 };
-                url = `${apiUrl}/${resource}`;
-                // url = `${apiUrl}/${resource}?${stringify(query)}`;
+                //url = `${apiUrl}/${resource}`;
+                url = `${apiUrl}/${resource}?${stringify(query)}`;
                 break;
             }
 
