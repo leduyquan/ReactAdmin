@@ -20,11 +20,11 @@ const PlaceCreate = props => (
       <TextInput source="code" validate={required()} />
       <LongTextInput source="makerIcon" />
       <LongTextInput source="thumbnail" />
-      <ArrayInput source="images">
+      {/* <ArrayInput source="images">
         <SimpleFormIterator>
           <TextInput source="url"/>
         </SimpleFormIterator>
-      </ArrayInput>
+      </ArrayInput> */}
       <TextInput source="subType" />
       <TextInput source="type" />
       <TextInput source="owner" />
