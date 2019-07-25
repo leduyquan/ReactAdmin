@@ -14,11 +14,6 @@ const ObjectList = props => (
             <TextField label="Name" source="translation[0].title" />
             <TextField source="code" />
             <TextField source="regionCode" />
-            {/* <ArrayField source="images">
-                <Datagrid>
-                    <ShortTextField source="url" length={70}/>
-                </Datagrid>
-            </ArrayField> */}
             <EditButton />
         </Datagrid>
     </List>

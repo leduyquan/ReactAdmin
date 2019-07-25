@@ -6,18 +6,26 @@ import {
   TabbedForm,
   FormTab,
   NumberInput,
+  SelectInput,
   required,
   ArrayInput,
   SimpleFormIterator
 } from 'react-admin';
 import PlaceTitle from './PlaceTitle';
 
+const typeOptions = [
+  { id: 'sightseeing', name: 'Sightseeing' },
+  { id: 'hotel', name: 'Hotel' },
+  { id: 'restaurant', name: 'Restaurant' },
+  { id: 'restroom', name: 'Restroom' },
+];
+
 const PlaceEdit = props => (
   <Edit title={<PlaceTitle type="Edit" />} {...props}>
     <TabbedForm>
       <FormTab label="SUMMARY">
         <TextInput source="code" validate={required()} />
-        <TextInput source="type" validate={required()} />
+        <SelectInput source="type" validate={required()} choices={typeOptions} />
         <TextInput source="subType" validate={required()} />
         <TextInput source="owner" />
         <LongTextInput source="makerIcon" />
@@ -37,7 +45,7 @@ const PlaceEdit = props => (
         </ArrayInput>
       </FormTab>
       <FormTab label="IMAGES">
-        <ArrayInput source="translations">
+        <ArrayInput source="images">
           <SimpleFormIterator>
             <TextInput source="url" />
           </SimpleFormIterator>
