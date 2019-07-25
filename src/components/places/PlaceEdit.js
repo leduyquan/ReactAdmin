@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Edit,
   TextInput,
@@ -9,10 +9,15 @@ import {
   required,
   ArrayInput,
   SimpleFormIterator
-} from 'react-admin';
-import PlaceTitle from './PlaceTitle';
+} from "react-admin";
+import PlaceTitle from "./PlaceTitle";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const PlaceEdit = props => (
+export const styles = {
+  translations: { display: "inline-block", width: "90%" }
+};
+
+const PlaceEdit = ({ classes, ...props }) => (
   <Edit title={<PlaceTitle type="Edit" />} {...props}>
     <TabbedForm>
       <FormTab label="SUMMARY">
@@ -26,18 +31,21 @@ const PlaceEdit = props => (
         <NumberInput source="rating" />
       </FormTab>
       <FormTab label="TRANSLATIONS">
-        <ArrayInput source="translations">
+        <ArrayInput source="translations" className={classes.translations}>
           <SimpleFormIterator>
             <TextInput label="Name" source="title" validate={required()} />
             <TextInput label="Language code" source="languageCode" />
-            <LongTextInput label="Short description" source="shortDescription" />
+            <LongTextInput
+              label="Short description"
+              source="shortDescription"
+            />
             <TextInput source="audio" />
             <TextInput source="video" />
           </SimpleFormIterator>
         </ArrayInput>
       </FormTab>
       <FormTab label="IMAGES">
-        <ArrayInput source="translations">
+        <ArrayInput source="images">
           <SimpleFormIterator>
             <TextInput source="url" />
           </SimpleFormIterator>
@@ -53,4 +61,4 @@ const PlaceEdit = props => (
   </Edit>
 );
 
-export default PlaceEdit;
+export default withStyles(styles)(PlaceEdit);
