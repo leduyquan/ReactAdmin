@@ -15,12 +15,13 @@ import './App.css';
 
 const dataProvider = myDataProvider(AppConstant.API_URL);
 //const dataProvider = server('http://localhost:8000')
+const displayLabel = name => ({ label: name })
 const App = () => (
   <Admin dashboard={dashboard} authProvider={authProvider} dataProvider={dataProvider}>
-    <Resource name="users" {...users} />
-    <Resource name="places" {...places} />
-    <Resource name="objects" {...objects} />
-    <Resource name="languages" {...languages} />
+    <Resource name="users-admin" options={displayLabel('Users')} {...users} />
+    <Resource name="places" options={displayLabel('Places')} {...places} />
+    <Resource name="objects" options={displayLabel('Objects')} {...objects} />
+    <Resource name="languages" options={displayLabel('Languages')} {...languages} />
   </Admin>
 )
 

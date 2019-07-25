@@ -12,10 +12,10 @@ import {
   required
 } from 'react-admin';
 import PureChipField from '../../common/simpleArray'
-
+import PlaceTitle from './PlaceTitle';
 
 const PlaceCreate = props => (
-  <Create {...props}>
+  <Create title={<PlaceTitle type="Create" />} {...props}>
     <SimpleForm>
       <TextInput source="code" validate={required()} />
       <LongTextInput source="makerIcon" />

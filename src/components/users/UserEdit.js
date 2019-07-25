@@ -10,7 +10,7 @@ import {
 import UserTitle from './UserTitle';
 
 const UserEdit = props => (
-  <Edit title={<UserTitle />} {...props}>
+  <Edit title={<UserTitle type="Edit" />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="firstName" validate={required()} />

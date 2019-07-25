@@ -1,7 +1,7 @@
 import React from 'react';
 
-const UserTitle = ({ record }) => (
-    <span>Edit {record ? 'User' : ''}</span>
+const UserTitle = ({ record, type }) => (
+    <span>{type} {record ? 'User' : ''}</span>
 );
 
 export default UserTitle;

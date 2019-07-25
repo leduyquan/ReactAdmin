@@ -10,7 +10,7 @@ import { AppConstant } from './constants';
 // Authenticatd by default
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
-        const { username, password, token } = params;
+        const { username, password } = params;
         const { fetchJson } = fetchUtils;
         const urlLogin = `${AppConstant.API_URL}/users/login`;
         const bodyRequest = { email: username, password: password }

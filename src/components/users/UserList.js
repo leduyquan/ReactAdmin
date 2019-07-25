@@ -1,5 +1,6 @@
 import React from 'react';
 import { Filter, SearchInput, List, Datagrid, TextField, EmailField, EditButton } from 'react-admin';
+import UserTitle from './UserTitle';
 
 const UserFilter = props => (
   <Filter {...props}>
@@ -8,9 +9,8 @@ const UserFilter = props => (
 )
 
 const UserList = props => (
-  <List filters={<UserFilter />} {...props}>
+  <List title={<UserTitle type="Users" />} filters={<UserFilter />} {...props}>
     <Datagrid>
-      <TextField source="id" />
       <TextField source="firstName" />
       <TextField source="lastName" />
       <TextField source="username" />
