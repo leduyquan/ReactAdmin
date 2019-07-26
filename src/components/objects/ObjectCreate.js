@@ -12,13 +12,9 @@ import {
 const ObjectCreate = props => (
   <Create {...props}>
     <SimpleForm>
+      <TextInput label="Name" source="translations[0].title" validate={required()} />
       <TextInput source="code" validate={required()} />
       <TextInput source="regionCode" validate={required()} />
-      <ArrayInput source="images">
-        <SimpleFormIterator>
-          <TextInput source="url"/>
-        </SimpleFormIterator>
-      </ArrayInput>
     </SimpleForm>
   </Create>
 );
