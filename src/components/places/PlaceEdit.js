@@ -54,14 +54,8 @@ const PlaceEdit = props => (
       </FormTab>
       <FormTab label="LOCATION">
         <TextInput label="Type" source="location.type" />
-        <NumberInput label="North lat" source="location.coordinates.north[0]" style={styles.inputInline} />
-        <NumberInput label="North long" source="location.coordinates.north[1]" />
-        <NumberInput label="South lat" source="location.coordinates.south[0]" style={styles.inputInline} />
-        <NumberInput label="South long" source="location.coordinates.south[1]" />
-        <NumberInput label="West lat" source="location.coordinates.west[0]" style={styles.inputInline} />
-        <NumberInput label="West long" source="location.coordinates.west[1]" />
-        <NumberInput label="East lat" source="location.coordinates.east[0]" style={styles.inputInline} />
-        <NumberInput label="East long" source="location.coordinates.east[1]" />
+        <NumberInput label="Coordinates lat" source="location.coordinates.lat" style={styles.inputInline} />
+        <NumberInput label="Coordinates long" source="location.coordinates.long" />
       </FormTab>
       <FormTab label="BOUDARY">
         <TextInput label="Type" source="boundary.type" />
