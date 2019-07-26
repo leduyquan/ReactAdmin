@@ -18,20 +18,23 @@ export const styles = {
   translations: { display: "inline-block", width: "90%" }
 };
 
-const PlaceEdit = ({ classes, ...props }) => (
 const typeOptions = [
-  { id: 'sightseeing', name: 'Sightseeing' },
-  { id: 'hotel', name: 'Hotel' },
-  { id: 'restaurant', name: 'Restaurant' },
-  { id: 'restroom', name: 'Restroom' },
+  { id: "sightseeing", name: "Sightseeing" },
+  { id: "hotel", name: "Hotel" },
+  { id: "restaurant", name: "Restaurant" },
+  { id: "restroom", name: "Restroom" }
 ];
 
-const PlaceEdit = props => (
+const PlaceEdit = ({ classes, ...props }) => (
   <Edit title={<PlaceTitle type="Edit" />} {...props}>
     <TabbedForm>
       <FormTab label="SUMMARY">
         <TextInput source="code" validate={required()} />
-        <SelectInput source="type" validate={required()} choices={typeOptions} />
+        <SelectInput
+          source="type"
+          validate={required()}
+          choices={typeOptions}
+        />
         <TextInput source="subType" validate={required()} />
         <TextInput source="owner" />
         <LongTextInput source="makerIcon" />
