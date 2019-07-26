@@ -1,30 +1,54 @@
-import React from 'react';
-import { Filter, SearchInput, List, Datagrid, TextField, ReferenceField, EditButton, ArrayField, UrlField, SingleFieldList } from 'react-admin';
-import ShortTextField from '../../common/shortTextField'
-import PlaceTitle from './PlaceTitle';
+import React from "react";
+import {
+  Filter,
+  SearchInput,
+  List,
+  Datagrid,
+  TextField,
+  ReferenceField,
+  EditButton,
+  ArrayField,
+  UrlField,
+  SingleFieldList,
+  FunctionField,
+  ImageField
+} from "react-admin";
+import ShortTextField from "../../common/shortTextField";
+import PlaceTitle from "./PlaceTitle";
+import { AppConstant } from "../../providers/constants";
 
 const PlaceFilter = props => (
-    <Filter {...props}>
-        <SearchInput source="q" alwaysOn />
-    </Filter>
-)
+  <Filter {...props}>
+    <SearchInput source="q" alwaysOn />
+  </Filter>
+);
 
 const PlaceList = props => (
-    <List title={<PlaceTitle type="Places" />} filters={<PlaceFilter />} {...props}>
-        <Datagrid>
-            <TextField label="Name" source="translations[0].title" />
-            <TextField source="code" />
-            {/* <ArrayField source="images">
-                <Datagrid>
-                    <ShortTextField source="url" length={50}/>
-                </Datagrid>
-            </ArrayField> */}
-            <TextField source="subType" />
-            <TextField source="type" />
-            <TextField source="owner" />
-            <EditButton />
-        </Datagrid>
-    </List>
+  <List
+    title={<PlaceTitle type="Places" />}
+    filters={<PlaceFilter />}
+    {...props}
+  >
+    <Datagrid>
+      <TextField label="Name" source="translations[0].title" />
+      <TextField source="code" />
+      <FunctionField
+        label="Image"
+        render={record => (
+          <img
+            alt={record.defaultImage}
+            src={`${AppConstant.SERVER_IMAGE}${record.defaultImage}`}
+            width={80}
+            height={80}
+          />
+        )}
+      />
+      <TextField source="subType" />
+      <TextField source="type" />
+      <TextField source="owner" />
+      <EditButton />
+    </Datagrid>
+  </List>
 );
 
 export default PlaceList;
