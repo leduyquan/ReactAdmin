@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Create,
@@ -6,22 +6,30 @@ import {
   SimpleForm,
   SelectInput,
   required
-} from 'react-admin';
-import PlaceTitle from './PlaceTitle';
+} from "react-admin";
+import PlaceTitle from "./PlaceTitle";
 
 const typeOptions = [
-  { id: 'sightseeing', name: 'Sightseeing' },
-  { id: 'hotel', name: 'Hotel' },
-  { id: 'restaurant', name: 'Restaurant' },
-  { id: 'restroom', name: 'Restroom' },
+  { id: "sightseeing", name: "Sightseeing" },
+  { id: "hotel", name: "Hotel" },
+  { id: "restaurant", name: "Restaurant" },
+  { id: "restroom", name: "Restroom" }
 ];
+
+const redirect = (basePath, id, data) => {
+  return `/places-admin/${id}`;
+};
 
 const PlaceCreate = props => (
   <Create title={<PlaceTitle type="Create" />} {...props}>
-    <SimpleForm>
-      <TextInput label="Name" source="translations[0].title" validate={required()} />
+    <SimpleForm redirect={redirect}>
+      <TextInput
+        label="Name"
+        source="translations[0].title"
+        validate={required()}
+      />
       <TextInput source="code" validate={required()} />
-      <SelectInput source="type" validate={required()}  choices={typeOptions} />
+      <SelectInput source="type" validate={required()} choices={typeOptions} />
       <TextInput source="subType" validate={required()} />
       <TextInput source="owner" />
     </SimpleForm>
