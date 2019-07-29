@@ -5,6 +5,7 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "ra-data-json-server": "^2.9.4",
+    "ra-language-vietnamese": "^2.0.0",
     "react": "^16.8.6",
     "react-admin": "3.0.0-alpha.1",
     "react-dom": "^16.8.6",
