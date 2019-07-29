@@ -5,11 +5,7 @@ import {
   List,
   Datagrid,
   TextField,
-  ReferenceField,
   EditButton,
-  ArrayField,
-  UrlField,
-  SingleFieldList,
   FunctionField
 } from "react-admin";
 import PlaceTitle from "./PlaceTitle";

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Filter, SearchInput, List, Datagrid, TextField, EmailField, EditButton } from 'react-admin';
+import { Filter, SearchInput, List, Datagrid, TextField, EmailField, EditButton, FunctionField } from 'react-admin';
 import UserTitle from './UserTitle';
+import { AppConstant } from "../../providers/constants";
 
 const UserFilter = props => (
   <Filter {...props}>
@@ -14,9 +15,24 @@ const UserList = props => (
       <TextField source="firstName" />
       <TextField source="lastName" />
       <TextField source="username" />
+      <FunctionField
+        label="Image"
+        render={record => {
+          if (record.userImage === null || record.userImage === "") {
+            return null;
+          }
+          return (
+            <img
+              alt={record.defaultImage}
+              src={`${AppConstant.SERVER_IMAGE}${record.userImage}`}
+              width={80}
+              height={80}
+            />
+          );
+        }}
+      />
       <EmailField source="email" />
       <TextField source="role" />
-      <TextField source="userImage" />
       <TextField source="facebook" />
       <EditButton />
     </Datagrid>
