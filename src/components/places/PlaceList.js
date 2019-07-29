@@ -10,10 +10,8 @@ import {
   ArrayField,
   UrlField,
   SingleFieldList,
-  FunctionField,
-  ImageField
+  FunctionField
 } from "react-admin";
-import ShortTextField from "../../common/shortTextField";
 import PlaceTitle from "./PlaceTitle";
 import { AppConstant } from "../../providers/constants";
 
@@ -34,14 +32,19 @@ const PlaceList = props => (
       <TextField source="code" />
       <FunctionField
         label="Image"
-        render={record => (
-          <img
-            alt={record.defaultImage}
-            src={`${AppConstant.SERVER_IMAGE}${record.defaultImage}`}
-            width={80}
-            height={80}
-          />
-        )}
+        render={record => {
+          if (record.defaultImage === null) {
+            return null;
+          }
+          return (
+            <img
+              alt={record.defaultImage}
+              src={`${AppConstant.SERVER_IMAGE}${record.defaultImage}`}
+              width={80}
+              height={80}
+            />
+          );
+        }}
       />
       <TextField source="subType" />
       <TextField source="type" />
