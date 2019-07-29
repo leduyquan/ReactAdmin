@@ -36,16 +36,11 @@ const PlaceEdit = props => (
           choices={typeOptions}
           style={styles.inputInline}
         />
-        <TextInput
-          source="subType"
-          validate={required()}
-          style={styles.inputInline}
-        />
         <TextInput source="owner" style={styles.inputInline} />
         <LongTextInput source="makerIcon" />
         <LongTextInput source="thumbnail" />
         <NumberInput source="distance" style={styles.inputInline} />
-        <NumberInput source="rating" style={styles.inputInline} />
+        <NumberInput source="rating" />
       </FormTab>
       <FormTab label="TRANSLATIONS">
         <ArrayInput source="translations" style={styles.translations}>
@@ -106,7 +101,6 @@ const PlaceEdit = props => (
             <NumberInput
               label="South long"
               source="south[1]"
-              style={styles.inputInline}
             />
             <NumberInput
               label="West lat"
@@ -126,7 +120,6 @@ const PlaceEdit = props => (
             <NumberInput
               label="East long"
               source="east[1]"
-              style={styles.inputInline}
             />
           </SimpleFormIterator>
         </ArrayInput>

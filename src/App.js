@@ -23,19 +23,27 @@ const i18nProvider = locale => messages[locale];
 
 const App = () => (
   <Admin
-    locale="vi"
+    locale="en"
     i18nProvider={i18nProvider}
     dashboard={dashboard}
     authProvider={authProvider}
     dataProvider={dataProvider}
   >
-    <Resource name="users-admin" options={displayLabel("Users")} {...users} />
+    <Resource
+      name="users-admin"
+      options={displayLabel("Users")}
+      {...users}
+    />
     <Resource
       name="places-admin"
       options={displayLabel("Places")}
       {...places}
     />
-    <Resource name="objects" options={displayLabel("Objects")} {...objects} />
+    <Resource
+      name="objects"
+      options={displayLabel("Objects")}
+      {...objects}
+    />
     <Resource
       name="languages"
       options={displayLabel("Languages")}

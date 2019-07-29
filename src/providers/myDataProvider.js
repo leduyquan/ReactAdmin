@@ -100,10 +100,9 @@ export default function (apiUrl, httpClient = fetchUtils.fetchJson) {
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:
-                console.log('haha', headers.get("accept"))
                 return {
-                    data: json.data,
-                    total: parseInt(headers.get("X-Total-Count"))
+                    data: json.data ? json.data : [],
+                    total: json.data ? parseInt(headers.get("X-Total-Count")) : 0
                 };
 
             case CREATE:
