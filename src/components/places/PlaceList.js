@@ -33,7 +33,7 @@ const PlaceList = props => (
       <FunctionField
         label="Image"
         render={record => {
-          if (record.defaultImage === null) {
+          if (record.defaultImage === null || record.defaultImage === "") {
             return null;
           }
           return (
