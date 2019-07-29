@@ -9,12 +9,14 @@ import myDataProvider from "./providers/myDataProvider";
 import { Admin, Resource } from "react-admin";
 import { AppConstant } from "./providers/constants";
 import vietnameseMessages from "ra-language-vietnamese";
+import englishMessages from "ra-language-english";
 import "./App.css";
 
 const dataProvider = myDataProvider(AppConstant.API_URL);
 const displayLabel = name => ({ label: name });
 const messages = {
-  vi: vietnameseMessages
+  vi: vietnameseMessages,
+  en: englishMessages
 };
 
 const i18nProvider = locale => messages[locale];
