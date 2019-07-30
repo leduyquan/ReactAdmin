@@ -30,7 +30,6 @@ const PlaceCreate = props => (
       />
       <TextInput source="code" validate={required()} />
       <SelectInput source="type" validate={required()} choices={typeOptions} />
-      <TextInput source="subType" validate={required()} />
       <TextInput source="owner" />
     </SimpleForm>
   </Create>
