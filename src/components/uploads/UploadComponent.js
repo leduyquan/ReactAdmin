@@ -14,23 +14,30 @@ class UploadButton extends Component {
 
   handleUpload = () => {
     const { push, recordId, showNotification, type, field } = this.props;
-    const uploadRecord = { type: type, field: field, data: this.userData };
+    this.userData.set("type", type);
+    this.userData.set("field", field);
+
+    // const uploadRecord = { type: type, field: field, images: [this.userData] };
     this.setState({ loading: true });
     fetch(`${AppConstant.API_URL}/${type}/${recordId}`, {
       method: "POST",
-      body: uploadRecord
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      },
+      body: this.userData
     })
       .then(response => {
         this.setState({ loading: false });
         if (response.status !== 200) {
           this.setState({ photo: "" });
-          this.userData.set("photo", null);
+          this.userData.set("images[]", null);
           showNotification("Error: Upload failed", "warning");
         } else {
           this.setState({ photo: "" });
-          this.userData.set("photo", null);
+          this.userData.set("images[]", null);
           showNotification("Upload successfully");
-          push(`/places-admin/${recordId}`);
+          push(`/places-admin`);
         }
       })
       .catch(e => {
@@ -45,9 +52,12 @@ class UploadButton extends Component {
   };
 
   handleChange = event => {
-    const value = event.target.files[0];
-    this.userData.set("photo", value);
-    this.setState({ photo: value });
+    const values = event.target.files;
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.userData.append("images[]", values[i]);
+    }
+
+    this.setState({ photo: values[0] });
   };
 
   cancelUpload = event => {

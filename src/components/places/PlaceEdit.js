@@ -64,7 +64,7 @@ const PlaceEdit = props => (
                 <UploadButton
                   name="markerUploadButton"
                   type="places-admin"
-                  field="markerIcon"
+                  field="makerIcon"
                   recordId={record.id}
                 />
               </div>
