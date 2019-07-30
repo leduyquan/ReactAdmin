@@ -26,7 +26,7 @@ const typeOptions = [
 
 const PlaceEdit = props => (
   <Edit title={<PlaceTitle type="Edit" />} {...props}>
-    <TabbedForm>
+    <TabbedForm redirect="edit">
       <FormTab label="SUMMARY">
         <TextInput
           source="code"

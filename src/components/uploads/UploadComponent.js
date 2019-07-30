@@ -13,7 +13,7 @@ class UploadButton extends Component {
   }
 
   handleUpload = () => {
-    const { push, recordId, showNotification, type, field } = this.props;
+    const { recordId, showNotification, type, field } = this.props;
     this.userData.set("type", type);
     this.userData.set("field", field);
 
