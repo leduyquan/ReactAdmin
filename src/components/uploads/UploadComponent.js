@@ -28,6 +28,7 @@ class UploadButton extends Component {
       body: this.userData
     })
       .then(response => {
+        console.log("recordId", recordId);
         this.setState({ loading: false });
         if (response.status !== 200) {
           this.setState({ photo: "" });
@@ -37,7 +38,7 @@ class UploadButton extends Component {
           this.setState({ photo: "" });
           this.userData.set("images[]", null);
           showNotification("Upload successfully");
-          push(`/places-admin`);
+          window.location.reload();
         }
       })
       .catch(e => {
