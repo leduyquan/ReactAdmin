@@ -4,22 +4,24 @@ import { showNotification } from "react-admin";
 import { push } from "react-router-redux";
 import { connect } from "react-redux";
 import { AppConstant } from "../../providers/constants";
+import { CircularProgress } from "@material-ui/core";
 
 class UploadButton extends Component {
   constructor(props) {
     super(props);
-    this.state = { photo: "", name: "" };
+    this.state = { photo: "", name: "", loading: false };
   }
 
   handleUpload = () => {
     const { push, recordId, showNotification, type, field } = this.props;
     const uploadRecord = { type: type, field: field, data: this.userData };
-    console.log("record", recordId);
+    this.setState({ loading: true });
     fetch(`${AppConstant.API_URL}/${type}/${recordId}`, {
       method: "POST",
       body: uploadRecord
     })
       .then(response => {
+        this.setState({ loading: false });
         if (response.status !== 200) {
           this.setState({ photo: "" });
           this.userData.set("photo", null);
@@ -32,7 +34,7 @@ class UploadButton extends Component {
         }
       })
       .catch(e => {
-        this.setState({ photo: "" });
+        this.setState({ photo: "", loading: false });
         this.userData.set("photo", null);
         showNotification("Error: Upload failed", "warning");
       });
@@ -97,6 +99,10 @@ class UploadButton extends Component {
             >
               Upload
             </Button>
+            {this.state.loading && (
+              <CircularProgress style={{ color: "secondary", size: 24 }} />
+            )}
+
             <Button
               style={{
                 marginLeft: 10,
