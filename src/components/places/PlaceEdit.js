@@ -24,10 +24,6 @@ const typeOptions = [
   { id: "restroom", name: "Restroom" }
 ];
 
-const handleChange = input => {
-  console.log(`Uploaded File Changed: ${input.value}`);
-};
-
 const PlaceEdit = props => (
   <Edit title={<PlaceTitle type="Edit" />} {...props}>
     <TabbedForm>
@@ -50,7 +46,6 @@ const PlaceEdit = props => (
         />
         <TextInput source="owner" />
         <FunctionField
-          classesName="ra-input ra-input-markerIcon"
           id="markerIcon"
           label="Marker Icon"
           render={record => {
@@ -66,7 +61,12 @@ const PlaceEdit = props => (
                   height={80}
                   style={{ display: "inline-block" }}
                 />
-                <UploadButton name="markerUploadButton" />
+                <UploadButton
+                  name="markerUploadButton"
+                  type="places-admin"
+                  field="markerIcon"
+                  recordId={record.id}
+                />
               </div>
             );
           }}
@@ -88,7 +88,12 @@ const PlaceEdit = props => (
                   height={80}
                   style={{ display: "inline-block" }}
                 />
-                <UploadButton name="thumbnailUploadButton" />
+                <UploadButton
+                  name="thumbnailUploadButton"
+                  type="places-admin"
+                  field="thumbnail"
+                  recordId={record.id}
+                />
               </div>
             );
           }}
@@ -153,10 +158,7 @@ const PlaceEdit = props => (
               source="south[0]"
               style={styles.inputInline}
             />
-            <NumberInput
-              label="South long"
-              source="south[1]"
-            />
+            <NumberInput label="South long" source="south[1]" />
             <NumberInput
               label="West lat"
               source="west[0]"
@@ -172,10 +174,7 @@ const PlaceEdit = props => (
               source="east[0]"
               style={styles.inputInline}
             />
-            <NumberInput
-              label="East long"
-              source="east[1]"
-            />
+            <NumberInput label="East long" source="east[1]" />
           </SimpleFormIterator>
         </ArrayInput>
       </FormTab>
