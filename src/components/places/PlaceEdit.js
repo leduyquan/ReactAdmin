@@ -9,10 +9,13 @@ import {
   SelectInput,
   required,
   ArrayInput,
-  SimpleFormIterator
+  SimpleFormIterator,
+  FunctionField
 } from "react-admin";
 import PlaceTitle from "./PlaceTitle";
 import { styles } from "../../common/styleField";
+import { AppConstant } from "../../providers/constants";
+import UploadButton from "../uploads/UploadComponent";
 
 const typeOptions = [
   { id: "sightseeing", name: "Sightseeing" },
@@ -20,6 +23,10 @@ const typeOptions = [
   { id: "restaurant", name: "Restaurant" },
   { id: "restroom", name: "Restroom" }
 ];
+
+const handleChange = input => {
+  console.log(`Uploaded File Changed: ${input.value}`);
+};
 
 const PlaceEdit = props => (
   <Edit title={<PlaceTitle type="Edit" />} {...props}>
@@ -41,9 +48,52 @@ const PlaceEdit = props => (
           validate={required()}
           style={styles.inputInline}
         />
-        <TextInput source="owner" style={styles.inputInline} />
-        <LongTextInput source="makerIcon" />
-        <LongTextInput source="thumbnail" />
+        <TextInput source="owner" />
+        <FunctionField
+          classesName="ra-input ra-input-markerIcon"
+          id="markerIcon"
+          label="Marker Icon"
+          render={record => {
+            if (record.makerIcon === null || record.makerIcon === "") {
+              return null;
+            }
+            return (
+              <div>
+                <img
+                  alt={record.makerIcon}
+                  src={`${AppConstant.SERVER_IMAGE}${record.makerIcon}`}
+                  width={80}
+                  height={80}
+                  style={{ display: "inline-block" }}
+                />
+                <UploadButton name="markerUploadButton" />
+              </div>
+            );
+          }}
+        />
+
+        <FunctionField
+          id="thumbnailIcon"
+          label="Thumbnail Icon"
+          render={record => {
+            if (record.thumbnail === null || record.thumbnail === "") {
+              return null;
+            }
+            return (
+              <div>
+                <img
+                  alt={record.thumbnail}
+                  src={`${AppConstant.SERVER_IMAGE}${record.thumbnail}`}
+                  width={80}
+                  height={80}
+                  style={{ display: "inline-block" }}
+                />
+                <UploadButton name="thumbnailUploadButton" />
+              </div>
+            );
+          }}
+        />
+
         <NumberInput source="distance" style={styles.inputInline} />
         <NumberInput source="rating" style={styles.inputInline} />
       </FormTab>
