@@ -50,7 +50,14 @@ const PlaceEdit = props => (
           label="Marker Icon"
           render={record => {
             if (record.makerIcon === null || record.makerIcon === "") {
-              return null;
+              return (
+                <UploadButton
+                  name="thumbnailUploadButton"
+                  type="places-admin"
+                  field="thumbnail"
+                  recordId={record.id}
+                />
+              );
             }
             return (
               <div>
@@ -77,7 +84,14 @@ const PlaceEdit = props => (
           label="Thumbnail Icon"
           render={record => {
             if (record.thumbnail === null || record.thumbnail === "") {
-              return null;
+              return (
+                <UploadButton
+                  name="thumbnailUploadButton"
+                  type="places-admin"
+                  field="thumbnail"
+                  recordId={record.id}
+                />
+              );
             }
             return (
               <div>
