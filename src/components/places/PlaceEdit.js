@@ -39,11 +39,6 @@ const PlaceEdit = props => (
           choices={typeOptions}
           style={styles.inputInline}
         />
-        <TextInput
-          source="subType"
-          validate={required()}
-          style={styles.inputInline}
-        />
         <TextInput source="owner" />
         <FunctionField
           id="markerIcon"
