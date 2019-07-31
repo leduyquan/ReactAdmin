@@ -28,7 +28,6 @@ class UploadButton extends Component {
       body: this.userData
     })
       .then(response => {
-        console.log("recordId", recordId);
         this.setState({ loading: false });
         if (response.status !== 200) {
           this.setState({ photo: "" });
@@ -52,7 +51,12 @@ class UploadButton extends Component {
     this.userData = new FormData();
   };
 
+  handleClickInputFile = event => {
+    event.target.value = "";
+  };
+
   handleChange = event => {
+    this.userData.delete("images[]");
     const values = event.target.files;
     for (let i = 0; i < event.target.files.length; i++) {
       this.userData.append("images[]", values[i]);
@@ -74,6 +78,7 @@ class UploadButton extends Component {
           id={`icon-button-file_${this.props.name}`}
           type="file"
           onChange={e => this.handleChange(e)}
+          onClick={this.handleClickInputFile}
         />
 
         {this.state.photo === "" ? (
