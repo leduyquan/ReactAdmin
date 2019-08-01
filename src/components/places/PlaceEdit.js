@@ -175,7 +175,6 @@ const PlaceEdit = props => {
                 id="images"
                 label="Image"
                 render={record => {
-                  console.log("record", record);
                   if (
                     record.url === undefined ||
                     record.url === null ||
@@ -192,22 +191,13 @@ const PlaceEdit = props => {
                     );
                   }
                   return (
-                    <div>
-                      <img
-                        alt={record.url}
-                        src={`${AppConstant.SERVER_IMAGE}${record.url}`}
-                        width={80}
-                        height={80}
-                        style={{ display: "inline-block" }}
-                      />
-                      <UploadButton
-                        name={"imageUploadButton" + props.id}
-                        type="places-admin"
-                        field="images"
-                        recordId={props.id}
-                        fileType="image/*"
-                      />
-                    </div>
+                    <img
+                      alt={record.url}
+                      src={`${AppConstant.SERVER_IMAGE}${record.url}`}
+                      width={80}
+                      height={80}
+                      style={{ display: "inline-block" }}
+                    />
                   );
                 }}
               />
