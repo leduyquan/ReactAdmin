@@ -170,16 +170,20 @@ const PlaceEdit = props => {
         </FormTab>
         <FormTab label="IMAGES">
           <ArrayInput source="images" style={styles.images}>
-            <SimpleFormIterator>
-              <FunctionField
-                id="images"
-                label="Image"
-                render={record => {
-                  if (
-                    record.url === undefined ||
-                    record.url === null ||
-                    record.url === ""
-                  ) {
+            <SimpleFormIterator disableRemove>
+              <FormDataConsumer>
+                {({ formData, scopedFormData, getSource, ...rest }) => {
+                  if (scopedFormData && scopedFormData.url) {
+                    return (
+                      <img
+                        alt={scopedFormData.url}
+                        src={`${AppConstant.SERVER_IMAGE}${scopedFormData.url}`}
+                        width={80}
+                        height={80}
+                        style={{ display: "inline-block" }}
+                      />
+                    );
+                  } else {
                     return (
                       <UploadButton
                         name={"imageUploadButton" + props.id}
@@ -190,17 +194,8 @@ const PlaceEdit = props => {
                       />
                     );
                   }
-                  return (
-                    <img
-                      alt={record.url}
-                      src={`${AppConstant.SERVER_IMAGE}${record.url}`}
-                      width={80}
-                      height={80}
-                      style={{ display: "inline-block" }}
-                    />
-                  );
                 }}
-              />
+              </FormDataConsumer>
             </SimpleFormIterator>
           </ArrayInput>
         </FormTab>
