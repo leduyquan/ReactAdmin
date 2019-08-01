@@ -9,7 +9,7 @@ import { CircularProgress } from "@material-ui/core";
 class UploadButton extends Component {
   constructor(props) {
     super(props);
-    this.state = { photo: "", name: "", loading: false };
+    this.state = { file: "", name: "", loading: false };
   }
 
   handleUpload = () => {
@@ -17,34 +17,70 @@ class UploadButton extends Component {
     this.userData.set("type", type);
     this.userData.set("field", field);
 
-    // const uploadRecord = { type: type, field: field, images: [this.userData] };
     this.setState({ loading: true });
-    fetch(`${AppConstant.API_URL}/${type}/${recordId}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token")
-      },
-      body: this.userData
-    })
-      .then(response => {
-        this.setState({ loading: false });
-        if (response.status !== 200) {
-          this.setState({ photo: "" });
-          this.userData.set("images[]", null);
-          showNotification("Error: Upload failed", "warning");
-        } else {
-          this.setState({ photo: "" });
-          this.userData.set("images[]", null);
-          showNotification("Upload successfully");
-          window.location.reload();
-        }
+
+    // const uploadRecord = { type: type, field: field, images: [this.userData] };
+    if (this.props.fileType === "image/*") {
+      fetch(`${AppConstant.API_URL}/${type}/${recordId}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        },
+        body: this.userData
       })
-      .catch(e => {
-        this.setState({ photo: "", loading: false });
-        this.userData.set("photo", null);
-        showNotification("Error: Upload failed", "warning");
-      });
+        .then(response => {
+          this.setState({ loading: false });
+          if (response.status !== 200) {
+            this.setState({ file: "" });
+            this.userData.set("images[]", null);
+            showNotification("Error: Upload failed", "warning");
+          } else {
+            this.setState({ file: "" });
+            this.userData.set("images[]", null);
+            showNotification("Upload successfully");
+            window.location.reload();
+          }
+        })
+        .catch(e => {
+          this.setState({ file: "", loading: false });
+          this.userData.set("file", null);
+          showNotification("Error: Upload failed", "warning");
+        });
+    }
+
+    if (
+      this.props.fileType === "audio/*" ||
+      this.props.fileType === "video/*"
+    ) {
+      this.userData.set("languageCode", this.props.languageCode);
+      fetch(`${AppConstant.API_URL}/${type}/${recordId}/media`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        },
+        body: this.userData
+      })
+        .then(response => {
+          this.setState({ loading: false });
+          if (response.status !== 200) {
+            this.setState({ file: "" });
+            this.userData.set("file", null);
+            showNotification("Error: Upload failed", "warning");
+          } else {
+            this.setState({ file: "" });
+            this.userData.set("file", null);
+            showNotification("Upload successfully");
+            window.location.reload();
+          }
+        })
+        .catch(e => {
+          this.setState({ file: "", loading: false });
+          this.userData.set("file", null);
+          showNotification("Error: Upload failed", "warning");
+        });
+    }
   };
 
   componentDidMount = () => {
@@ -56,24 +92,36 @@ class UploadButton extends Component {
   };
 
   handleChange = event => {
-    this.userData.delete("images[]");
-    const values = event.target.files;
-    for (let i = 0; i < event.target.files.length; i++) {
-      this.userData.append("images[]", values[i]);
+    if (this.props.fileType === "image/*") {
+      this.userData.delete("images[]");
+      const values = event.target.files;
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.userData.append("images[]", values[i]);
+      }
+
+      this.setState({ file: values[0] });
     }
 
-    this.setState({ photo: values[0] });
+    if (
+      this.props.fileType === "audio/*" ||
+      this.props.fileType === "video/*"
+    ) {
+      this.userData.delete("file");
+      const value = event.target.files[0];
+      this.userData.set("file", value);
+      this.setState({ file: value });
+    }
   };
 
   cancelUpload = event => {
-    this.setState({ photo: "" });
+    this.setState({ file: "" });
   };
 
   render() {
     return (
       <div style={{ display: "inline-block" }} key={this.props.key}>
         <input
-          accept="image/*"
+          accept={this.props.fileType}
           style={{ display: "none" }}
           id={`icon-button-file_${this.props.name}`}
           type="file"
@@ -81,7 +129,7 @@ class UploadButton extends Component {
           onClick={this.handleClickInputFile}
         />
 
-        {this.state.photo === "" ? (
+        {this.state.file === "" ? (
           <label
             htmlFor={`icon-button-file_${this.props.name}`}
             id="labelButtonFile"
@@ -133,7 +181,7 @@ class UploadButton extends Component {
               Cancel
             </Button>
             <span style={{ marginLeft: "10px" }}>
-              {this.state.photo ? this.state.photo.name : ""}
+              {this.state.file ? this.state.file.name : ""}
             </span>
           </div>
         )}

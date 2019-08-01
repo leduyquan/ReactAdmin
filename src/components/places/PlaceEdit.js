@@ -10,7 +10,8 @@ import {
   required,
   ArrayInput,
   SimpleFormIterator,
-  FunctionField
+  FunctionField,
+  FormDataConsumer
 } from "react-admin";
 import PlaceTitle from "./PlaceTitle";
 import { styles } from "../../common/styleField";
@@ -24,171 +25,196 @@ const typeOptions = [
   { id: "restroom", name: "Restroom" }
 ];
 
-const PlaceEdit = props => (
-  <Edit title={<PlaceTitle type="Edit" />} {...props}>
-    <TabbedForm redirect="edit">
-      <FormTab label="SUMMARY">
-        <TextInput
-          source="code"
-          validate={required()}
-          style={styles.inputInline}
-        />
-        <SelectInput
-          source="type"
-          validate={required()}
-          choices={typeOptions}
-          style={styles.inputInline}
-        />
-        <TextInput source="owner" />
-        <FunctionField
-          id="markerIcon"
-          label="Marker Icon"
-          render={record => {
-            if (record.makerIcon === null || record.makerIcon === "") {
+const PlaceEdit = props => {
+  return (
+    <Edit title={<PlaceTitle type="Edit" />} {...props}>
+      <TabbedForm redirect="edit">
+        <FormTab label="SUMMARY">
+          <TextInput
+            source="code"
+            validate={required()}
+            style={styles.inputInline}
+          />
+          <SelectInput
+            source="type"
+            validate={required()}
+            choices={typeOptions}
+            style={styles.inputInline}
+          />
+          <TextInput source="owner" />
+          <FunctionField
+            id="markerIcon"
+            label="Marker Icon"
+            render={record => {
+              if (record.makerIcon === null || record.makerIcon === "") {
+                return (
+                  <UploadButton
+                    name="thumbnailUploadButton"
+                    type="places-admin"
+                    field="thumbnail"
+                    recordId={record.id}
+                    fileType="image/*"
+                  />
+                );
+              }
               return (
-                <UploadButton
-                  name="thumbnailUploadButton"
-                  type="places-admin"
-                  field="thumbnail"
-                  recordId={record.id}
-                />
+                <div>
+                  <img
+                    alt={record.makerIcon}
+                    src={`${AppConstant.SERVER_IMAGE}${record.makerIcon}`}
+                    width={80}
+                    height={80}
+                    style={{ display: "inline-block" }}
+                  />
+                  <UploadButton
+                    name="markerUploadButton"
+                    type="places-admin"
+                    field="makerIcon"
+                    recordId={record.id}
+                    fileType="image/*"
+                  />
+                </div>
               );
-            }
-            return (
-              <div>
-                <img
-                  alt={record.makerIcon}
-                  src={`${AppConstant.SERVER_IMAGE}${record.makerIcon}`}
-                  width={80}
-                  height={80}
-                  style={{ display: "inline-block" }}
-                />
-                <UploadButton
-                  name="markerUploadButton"
-                  type="places-admin"
-                  field="makerIcon"
-                  recordId={record.id}
-                />
-              </div>
-            );
-          }}
-        />
+            }}
+          />
 
-        <FunctionField
-          id="thumbnailIcon"
-          label="Thumbnail Icon"
-          render={record => {
-            if (record.thumbnail === null || record.thumbnail === "") {
+          <FunctionField
+            id="thumbnailIcon"
+            label="Thumbnail Icon"
+            render={record => {
+              if (record.thumbnail === null || record.thumbnail === "") {
+                return (
+                  <UploadButton
+                    name="thumbnailUploadButton"
+                    type="places-admin"
+                    field="thumbnail"
+                    recordId={record.id}
+                    fileType="image/*"
+                  />
+                );
+              }
               return (
-                <UploadButton
-                  name="thumbnailUploadButton"
-                  type="places-admin"
-                  field="thumbnail"
-                  recordId={record.id}
-                />
+                <div>
+                  <img
+                    alt={record.thumbnail}
+                    src={`${AppConstant.SERVER_IMAGE}${record.thumbnail}`}
+                    width={80}
+                    height={80}
+                    style={{ display: "inline-block" }}
+                  />
+                  <UploadButton
+                    name="thumbnailUploadButton"
+                    type="places-admin"
+                    field="thumbnail"
+                    recordId={record.id}
+                    fileType="image/*"
+                  />
+                </div>
               );
-            }
-            return (
-              <div>
-                <img
-                  alt={record.thumbnail}
-                  src={`${AppConstant.SERVER_IMAGE}${record.thumbnail}`}
-                  width={80}
-                  height={80}
-                  style={{ display: "inline-block" }}
-                />
-                <UploadButton
-                  name="thumbnailUploadButton"
-                  type="places-admin"
-                  field="thumbnail"
-                  recordId={record.id}
-                />
-              </div>
-            );
-          }}
-        />
+            }}
+          />
 
-        <NumberInput source="distance" style={styles.inputInline} />
-        <NumberInput source="rating" />
-      </FormTab>
-      <FormTab label="TRANSLATIONS">
-        <ArrayInput source="translations" style={styles.translations}>
-          <SimpleFormIterator>
-            <TextInput label="Name" source="title" validate={required()} />
-            <TextInput label="Language code" source="languageCode" />
-            <LongTextInput
-              label="Short description"
-              source="shortDescription"
-            />
-            <TextInput source="audio" />
-            <TextInput source="video" />
-          </SimpleFormIterator>
-        </ArrayInput>
-      </FormTab>
-      <FormTab label="IMAGES">
-        <ArrayInput source="images" style={styles.images}>
-          <SimpleFormIterator>
-            <TextInput source="url" />
-          </SimpleFormIterator>
-        </ArrayInput>
-      </FormTab>
-      <FormTab label="LOCATION">
-        <TextInput label="Type" source="location.type" />
-        <NumberInput
-          label="Coordinates lat"
-          source="location.coordinates.lat"
-          style={styles.inputInline}
-        />
-        <NumberInput
-          label="Coordinates long"
-          source="location.coordinates.long"
-        />
-      </FormTab>
-      <FormTab label="BOUDARY">
-        <TextInput label="Type" source="boundary.type" />
-        <ArrayInput
-          label="Coordinates"
-          source="boundary.coordinates"
-          style={styles.boundaries}
-        >
-          <SimpleFormIterator>
-            <NumberInput
-              label="North lat"
-              source="north[0]"
-              style={styles.inputInline}
-            />
-            <NumberInput
-              label="North long"
-              source="north[1]"
-              style={styles.inputInline}
-            />
-            <NumberInput
-              label="South lat"
-              source="south[0]"
-              style={styles.inputInline}
-            />
-            <NumberInput label="South long" source="south[1]" />
-            <NumberInput
-              label="West lat"
-              source="west[0]"
-              style={styles.inputInline}
-            />
-            <NumberInput
-              label="West long"
-              source="west[1]"
-              style={styles.inputInline}
-            />
-            <NumberInput
-              label="East lat"
-              source="east[0]"
-              style={styles.inputInline}
-            />
-            <NumberInput label="East long" source="east[1]" />
-          </SimpleFormIterator>
-        </ArrayInput>
-      </FormTab>
-    </TabbedForm>
-  </Edit>
-);
+          <NumberInput source="distance" style={styles.inputInline} />
+          <NumberInput source="rating" />
+        </FormTab>
+        <FormTab label="TRANSLATIONS">
+          <ArrayInput source="translations" style={styles.translations}>
+            <SimpleFormIterator>
+              <TextInput label="Name" source="title" validate={required()} />
+              <TextInput label="Language code" source="languageCode" />
+              <LongTextInput
+                label="Short description"
+                source="shortDescription"
+              />
+              <LongTextInput label="Audio" source="audio" disabled={true} />
+              <FormDataConsumer>
+                {({ formData, scopedFormData, getSource, ...rest }) => {
+                  if (scopedFormData && scopedFormData.languageCode) {
+                    return (
+                      <UploadButton
+                        name="audioUploadButton"
+                        type="places-admin"
+                        field="audio"
+                        fileType="audio/*"
+                        recordId={props.id}
+                        languageCode={scopedFormData.languageCode}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                }}
+              </FormDataConsumer>
+
+              <TextInput source="video" />
+            </SimpleFormIterator>
+          </ArrayInput>
+        </FormTab>
+        <FormTab label="IMAGES">
+          <ArrayInput source="images" style={styles.images}>
+            <SimpleFormIterator>
+              <TextInput source="url" />
+            </SimpleFormIterator>
+          </ArrayInput>
+        </FormTab>
+        <FormTab label="LOCATION">
+          <TextInput label="Type" source="location.type" />
+          <NumberInput
+            label="Coordinates lat"
+            source="location.coordinates.lat"
+            style={styles.inputInline}
+          />
+          <NumberInput
+            label="Coordinates long"
+            source="location.coordinates.long"
+          />
+        </FormTab>
+        <FormTab label="BOUDARY">
+          <TextInput label="Type" source="boundary.type" />
+          <ArrayInput
+            label="Coordinates"
+            source="boundary.coordinates"
+            style={styles.boundaries}
+          >
+            <SimpleFormIterator>
+              <NumberInput
+                label="North lat"
+                source="north[0]"
+                style={styles.inputInline}
+              />
+              <NumberInput
+                label="North long"
+                source="north[1]"
+                style={styles.inputInline}
+              />
+              <NumberInput
+                label="South lat"
+                source="south[0]"
+                style={styles.inputInline}
+              />
+              <NumberInput label="South long" source="south[1]" />
+              <NumberInput
+                label="West lat"
+                source="west[0]"
+                style={styles.inputInline}
+              />
+              <NumberInput
+                label="West long"
+                source="west[1]"
+                style={styles.inputInline}
+              />
+              <NumberInput
+                label="East lat"
+                source="east[0]"
+                style={styles.inputInline}
+              />
+              <NumberInput label="East long" source="east[1]" />
+            </SimpleFormIterator>
+          </ArrayInput>
+        </FormTab>
+      </TabbedForm>
+    </Edit>
+  );
+};
 
 export default PlaceEdit;
