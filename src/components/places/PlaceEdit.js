@@ -146,7 +146,25 @@ const PlaceEdit = props => {
                 }}
               </FormDataConsumer>
 
-              <TextInput source="video" />
+              <LongTextInput label="Video" source="video" disabled={true} />
+              <FormDataConsumer>
+                {({ formData, scopedFormData, getSource, ...rest }) => {
+                  if (scopedFormData && scopedFormData.languageCode) {
+                    return (
+                      <UploadButton
+                        name="videoUploadButton"
+                        type="places-admin"
+                        field="video"
+                        fileType="video/*"
+                        recordId={props.id}
+                        languageCode={scopedFormData.languageCode}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                }}
+              </FormDataConsumer>
             </SimpleFormIterator>
           </ArrayInput>
         </FormTab>
