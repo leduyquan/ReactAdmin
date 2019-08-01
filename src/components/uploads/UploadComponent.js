@@ -92,6 +92,7 @@ class UploadButton extends Component {
   };
 
   handleChange = event => {
+    console.log("state loading", this.state.loading);
     if (this.props.fileType === "image/*") {
       this.userData.delete("images[]");
       const values = event.target.files;

@@ -171,7 +171,46 @@ const PlaceEdit = props => {
         <FormTab label="IMAGES">
           <ArrayInput source="images" style={styles.images}>
             <SimpleFormIterator>
-              <TextInput source="url" />
+              <FunctionField
+                id="images"
+                label="Image"
+                render={record => {
+                  console.log("record", record);
+                  if (
+                    record.url === undefined ||
+                    record.url === null ||
+                    record.url === ""
+                  ) {
+                    return (
+                      <UploadButton
+                        name={"imageUploadButton" + props.id}
+                        type="places-admin"
+                        field="images"
+                        recordId={props.id}
+                        fileType="image/*"
+                      />
+                    );
+                  }
+                  return (
+                    <div>
+                      <img
+                        alt={record.url}
+                        src={`${AppConstant.SERVER_IMAGE}${record.url}`}
+                        width={80}
+                        height={80}
+                        style={{ display: "inline-block" }}
+                      />
+                      <UploadButton
+                        name={"imageUploadButton" + props.id}
+                        type="places-admin"
+                        field="images"
+                        recordId={props.id}
+                        fileType="image/*"
+                      />
+                    </div>
+                  );
+                }}
+              />
             </SimpleFormIterator>
           </ArrayInput>
         </FormTab>
