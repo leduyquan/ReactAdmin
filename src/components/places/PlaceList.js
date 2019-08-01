@@ -25,7 +25,6 @@ const PlaceList = props => (
   >
     <Datagrid>
       <TextField label="Name" source="translations[0].title" />
-      <TextField source="code" />
       <FunctionField
         label="Image"
         render={record => {
@@ -42,9 +41,9 @@ const PlaceList = props => (
           );
         }}
       />
-      <TextField source="subType" />
       <TextField source="type" />
       <TextField source="owner" />
+      <TextField source="rating" />
       <EditButton />
     </Datagrid>
   </List>
