@@ -13,6 +13,7 @@ import {
   FunctionField,
   FormDataConsumer
 } from "react-admin";
+import Button from "@material-ui/core/Button";
 import PlaceTitle from "./PlaceTitle";
 import { styles } from "../../common/styleField";
 import { AppConstant } from "../../providers/constants";
@@ -24,6 +25,27 @@ const typeOptions = [
   { id: "restaurant", name: "Restaurant" },
   { id: "restroom", name: "Restroom" }
 ];
+
+const removeImage = (recordId, url) => {
+  const img = {
+    images: [{ url: url }]
+  };
+  fetch(`${AppConstant.API_URL}/places-admin/${recordId}/delete`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token")
+    },
+    body: JSON.stringify(img)
+  })
+    .then(response => {
+      window.location.reload();
+      // }
+    })
+    .catch(e => {
+      console.log("error remove ", e);
+    });
+};
 
 const PlaceEdit = props => {
   return (
@@ -175,13 +197,33 @@ const PlaceEdit = props => {
                 {({ formData, scopedFormData, getSource, ...rest }) => {
                   if (scopedFormData && scopedFormData.url) {
                     return (
-                      <img
-                        alt={scopedFormData.url}
-                        src={`${AppConstant.SERVER_IMAGE}${scopedFormData.url}`}
-                        width={80}
-                        height={80}
-                        style={{ display: "inline-block" }}
-                      />
+                      <React.Fragment>
+                        <img
+                          alt={scopedFormData.url}
+                          src={`${AppConstant.SERVER_IMAGE}${
+                            scopedFormData.url
+                          }`}
+                          width={80}
+                          height={80}
+                          style={{ display: "inline-block" }}
+                        />
+                        <Button
+                          key={scopedFormData.url}
+                          style={{
+                            marginLeft: 10,
+                            marginBottom: 20,
+                            verticalAlign: "middle"
+                          }}
+                          variant="contained"
+                          color="secondary"
+                          component="span"
+                          onClick={() =>
+                            removeImage(props.id, scopedFormData.url)
+                          }
+                        >
+                          Remove
+                        </Button>
+                      </React.Fragment>
                     );
                   } else {
                     return (
