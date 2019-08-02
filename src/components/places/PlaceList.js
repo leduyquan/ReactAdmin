@@ -6,6 +6,7 @@ import {
   Datagrid,
   TextField,
   EditButton,
+  DeleteButton,
   FunctionField
 } from "react-admin";
 import PlaceTitle from "./PlaceTitle";
@@ -45,6 +46,7 @@ const PlaceList = props => (
       <TextField source="owner" />
       <TextField source="rating" />
       <EditButton />
+      <DeleteButton />
     </Datagrid>
   </List>
 );
