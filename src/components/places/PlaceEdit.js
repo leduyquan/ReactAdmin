@@ -82,12 +82,18 @@ class PlaceEdit extends Component {
         marker: updatedMarker
       });
 
-      dispatch(
-        change(REDUX_FORM_NAME, "location.coordinates.lat", updatedMarker.lat)
-      );
-      dispatch(
-        change(REDUX_FORM_NAME, "location.coordinates.long", updatedMarker.lng)
-      );
+      if (dispatch !== undefined && dispatch !== null) {
+        dispatch(
+          change(REDUX_FORM_NAME, "location.coordinates.lat", updatedMarker.lat)
+        );
+        dispatch(
+          change(
+            REDUX_FORM_NAME,
+            "location.coordinates.long",
+            updatedMarker.lng
+          )
+        );
+      }
     }
   };
 
@@ -290,21 +296,27 @@ class PlaceEdit extends Component {
           </FormTab>
           <FormTab label="LOCATION">
             <TextInput label="Type" source="location.type" />
-            <NumberInput
-              label="Coordinates lat"
-              source="location.coordinates.lat"
-              style={styles.inputInline}
-              disabled
-            />
+            <FormDataConsumer>
+              {({ formData, scopedFormData, getSource, dispatch, ...rest }) => {
+                return (
+                  <NumberInput
+                    label="Coordinates lat"
+                    source="location.coordinates.lat"
+                    style={styles.inputInline}
+                    onChange={() => this.updatePosition(null)}
+                    // disabled
+                  />
+                );
+              }}
+            </FormDataConsumer>
+
             <NumberInput
               label="Coordinates long"
               source="location.coordinates.long"
-              disabled
+              onChange={() => this.updatePosition(null)}
             />
             <FormDataConsumer>
               {({ formData, scopedFormData, getSource, dispatch, ...rest }) => {
-                console.log("abc", formData);
-                console.log("position", position);
                 if (position[0] === 0 && position[1] === 0) {
                   position[0] = formData.location.coordinates.lat;
                   position[1] = formData.location.coordinates.long;
