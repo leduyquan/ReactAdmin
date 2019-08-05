@@ -28,7 +28,6 @@ const PlaceCreate = props => (
         source="translations[0].title"
         validate={required()}
       />
-      <TextInput source="code" validate={required()} />
       <SelectInput source="type" validate={required()} choices={typeOptions} />
       <TextInput source="owner" />
     </SimpleForm>
