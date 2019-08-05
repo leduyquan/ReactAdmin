@@ -52,18 +52,11 @@ const PlaceEdit = props => {
     <Edit title={<PlaceTitle type="Edit" />} {...props}>
       <TabbedForm redirect="edit">
         <FormTab label="SUMMARY">
-          <TextInput
-            source="code"
-            validate={required()}
-            style={styles.inputInline}
-          />
           <SelectInput
             source="type"
             validate={required()}
             choices={typeOptions}
-            style={styles.inputInline}
           />
-          <TextInput source="owner" />
           <FunctionField
             id="markerIcon"
             label="Marker Icon"
@@ -135,9 +128,6 @@ const PlaceEdit = props => {
               );
             }}
           />
-
-          <NumberInput source="distance" style={styles.inputInline} />
-          <NumberInput source="rating" />
         </FormTab>
         <FormTab label="TRANSLATIONS">
           <ArrayInput source="translations" style={styles.translations}>
