@@ -12,6 +12,7 @@ import {
   SimpleFormIterator,
   FunctionField,
   FormDataConsumer,
+  DisabledInput,
   REDUX_FORM_NAME
 } from "react-admin";
 import Button from "@material-ui/core/Button";
@@ -105,7 +106,7 @@ class PlaceEdit extends Component {
       <Edit title={<PlaceTitle type="Edit" />} {...props}>
         <TabbedForm redirect="edit">
           <FormTab label="SUMMARY">
-            <TextInput
+            <DisabledInput
               source="code"
               validate={required()}
               style={styles.inputInline}
@@ -114,9 +115,8 @@ class PlaceEdit extends Component {
               source="type"
               validate={required()}
               choices={typeOptions}
-              style={styles.inputInline}
             />
-            <TextInput source="owner" />
+            <DisabledInput source="owner" />
             <FunctionField
               id="markerIcon"
               label="Marker Icon"
@@ -189,8 +189,8 @@ class PlaceEdit extends Component {
               }}
             />
 
-            <NumberInput source="distance" style={styles.inputInline} />
-            <NumberInput source="rating" />
+            <DisabledInput source="distance" style={styles.inputInline} />
+            <DisabledInput source="rating" />
           </FormTab>
           <FormTab label="TRANSLATIONS">
             <ArrayInput source="translations" style={styles.translations}>
@@ -255,7 +255,7 @@ class PlaceEdit extends Component {
                             alt={scopedFormData.url}
                             src={`${AppConstant.SERVER_IMAGE}${
                               scopedFormData.url
-                            }`}
+                              }`}
                             width={80}
                             height={80}
                             style={{ display: "inline-block" }}
@@ -304,7 +304,6 @@ class PlaceEdit extends Component {
                     source="location.coordinates.lat"
                     style={styles.inputInline}
                     onChange={() => this.updatePosition(null)}
-                    // disabled
                   />
                 );
               }}
@@ -317,6 +316,7 @@ class PlaceEdit extends Component {
             />
             <FormDataConsumer>
               {({ formData, scopedFormData, getSource, dispatch, ...rest }) => {
+                console.log('formData', formData)
                 if (position[0] === 0 && position[1] === 0) {
                   position[0] = formData.location.coordinates.lat;
                   position[1] = formData.location.coordinates.long;
