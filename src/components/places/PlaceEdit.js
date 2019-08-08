@@ -255,7 +255,7 @@ class PlaceEdit extends Component {
                             alt={scopedFormData.url}
                             src={`${AppConstant.SERVER_IMAGE}${
                               scopedFormData.url
-                              }`}
+                            }`}
                             width={80}
                             height={80}
                             style={{ display: "inline-block" }}
@@ -316,15 +316,24 @@ class PlaceEdit extends Component {
             />
             <FormDataConsumer>
               {({ formData, scopedFormData, getSource, dispatch, ...rest }) => {
-                console.log('formData', formData)
-                if (position[0] === 0 && position[1] === 0) {
-                  position[0] = formData.location.coordinates.lat;
-                  position[1] = formData.location.coordinates.long;
-                }
+                if (
+                  formData.location === undefined ||
+                  formData.location === null
+                ) {
+                  position[0] = 0;
+                  position[1] = 0;
+                  markerPosition[0] = 0;
+                  markerPosition[1] = 0;
+                } else {
+                  if (position[0] === 0 && position[1] === 0) {
+                    position[0] = formData.location.coordinates.lat;
+                    position[1] = formData.location.coordinates.long;
+                  }
 
-                if (markerPosition[0] === 0 && markerPosition[1] === 0) {
-                  markerPosition[0] = formData.location.coordinates.lat;
-                  markerPosition[1] = formData.location.coordinates.long;
+                  if (markerPosition[0] === 0 && markerPosition[1] === 0) {
+                    markerPosition[0] = formData.location.coordinates.lat;
+                    markerPosition[1] = formData.location.coordinates.long;
+                  }
                 }
 
                 return (
