@@ -316,14 +316,15 @@ class PlaceEdit extends Component {
             />
             <FormDataConsumer>
               {({ formData, scopedFormData, getSource, dispatch, ...rest }) => {
+                console.log("formData", formData);
                 if (
                   formData.location === undefined ||
                   formData.location === null
                 ) {
-                  position[0] = 0;
-                  position[1] = 0;
-                  markerPosition[0] = 0;
-                  markerPosition[1] = 0;
+                  position[0] = 16.46772;
+                  position[1] = 107.57914;
+                  markerPosition[0] = 16.46772;
+                  markerPosition[1] = 107.57914;
                 } else {
                   if (position[0] === 0 && position[1] === 0) {
                     position[0] = formData.location.coordinates.lat;
