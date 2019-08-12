@@ -1,6 +1,7 @@
 import React from "react";
 import users from "./components/users";
 import places from "./components/places";
+import regions from "./components/regions";
 import objects from "./components/objects";
 import languages from "./components/languages";
 import dashboard from "./components/dashboard";
@@ -38,6 +39,11 @@ const App = () => (
       name="places-admin"
       options={displayLabel("Places")}
       {...places}
+    />
+    <Resource
+      name="regions-admin"
+      options={displayLabel("Regions")}
+      {...regions}
     />
     <Resource
       name="objects"
