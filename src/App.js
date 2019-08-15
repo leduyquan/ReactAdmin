@@ -46,7 +46,7 @@ const App = () => (
       {...regions}
     />
     <Resource
-      name="objects"
+      name="objects-admin"
       options={displayLabel("Objects")}
       {...objects}
     />

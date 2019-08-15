@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Create, TextInput, SimpleForm, required } from "react-admin";
+import { Create, TextInput, SimpleForm, required, ReferenceInput, SelectInput } from "react-admin";
 
 const ObjectCreate = props => (
   <Create {...props}>
@@ -10,8 +10,9 @@ const ObjectCreate = props => (
         source="translations[0].title"
         validate={required()}
       />
-      <TextInput source="code" validate={required()} />
-      <TextInput source="regionCode" validate={required()} />
+      <ReferenceInput label="Region" validate={required()} source="regionID" reference="regions-admin">
+        <SelectInput optionText="translations[0].title" />
+      </ReferenceInput>
     </SimpleForm>
   </Create>
 );
