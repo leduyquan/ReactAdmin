@@ -23,7 +23,7 @@ const removeImage = (recordId, url) => {
   const img = {
     images: [{ url: url }]
   };
-  fetch(`${AppConstant.API_URL}/places-admin/${recordId}/delete`, {
+  fetch(`${AppConstant.API_URL}/objects-admin/${recordId}/delete`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -41,7 +41,7 @@ const removeImage = (recordId, url) => {
 };
 
 const ObjectEdit = props => (
-  <Edit title={<ObjectTitle />} {...props}>
+  <Edit title={<ObjectTitle type="Edit" />} {...props}>
     <TabbedForm>
       <FormTab label="SUMMARY">
         <DisabledInput
@@ -69,7 +69,7 @@ const ObjectEdit = props => (
                   return (
                     <UploadButton
                       name="audioUploadButton"
-                      type="places-admin"
+                      type="objects-admin"
                       field="audio"
                       fileType="audio/*"
                       recordId={props.id}
@@ -89,7 +89,7 @@ const ObjectEdit = props => (
                   return (
                     <UploadButton
                       name="videoUploadButton"
-                      type="places-admin"
+                      type="objects-admin"
                       field="video"
                       fileType="video/*"
                       recordId={props.id}
@@ -143,7 +143,7 @@ const ObjectEdit = props => (
                   return (
                     <UploadButton
                       name={"imageUploadButton" + props.id}
-                      type="places-admin"
+                      type="objects-admin"
                       field="images"
                       recordId={props.id}
                       fileType="image/*"

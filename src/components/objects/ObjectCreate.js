@@ -1,9 +1,9 @@
 import React from "react";
-
+import ObjectTitle from './ObjectTitle';
 import { Create, TextInput, SimpleForm, required, ReferenceInput, SelectInput } from "react-admin";
 
 const ObjectCreate = props => (
-  <Create {...props}>
+  <Create title={<ObjectTitle type="Create" />} {...props}>
     <SimpleForm>
       <TextInput
         label="Name"

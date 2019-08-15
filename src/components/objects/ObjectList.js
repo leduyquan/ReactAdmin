@@ -11,6 +11,7 @@ import {
   FunctionField
 } from "react-admin";
 import { AppConstant } from "../../providers/constants";
+import ObjectTitle from "./ObjectTitle";
 
 const ObjectFilter = props => (
   <Filter {...props}>
@@ -19,7 +20,7 @@ const ObjectFilter = props => (
 );
 
 const ObjectList = props => (
-  <List filters={<ObjectFilter />} {...props}>
+  <List filters={<ObjectFilter />} title={<ObjectTitle type="Objects" />} {...props}>
     <Datagrid>
       <TextField label="Name" source="translation[0].title" />
       <FunctionField
