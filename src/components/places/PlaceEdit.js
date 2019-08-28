@@ -374,7 +374,7 @@ class PlaceEdit extends Component {
               }}
             </FormDataConsumer>
           </FormTab>
-          <FormTab label="BOUDARY">
+          <FormTab label="BOUNDARY">
             <TextInput label="Type" source="boundary.type" />
             <ArrayInput
               label="Coordinates"
@@ -383,37 +383,37 @@ class PlaceEdit extends Component {
             >
               <SimpleFormIterator>
                 <NumberInput
-                  label="North lat"
+                  label="North long"
                   source="north[0]"
                   style={styles.inputInline}
                 />
                 <NumberInput
-                  label="North long"
+                  label="North lat"
                   source="north[1]"
                   style={styles.inputInline}
                 />
                 <NumberInput
-                  label="South lat"
+                  label="South long"
                   source="south[0]"
                   style={styles.inputInline}
                 />
-                <NumberInput label="South long" source="south[1]" />
+                <NumberInput label="South lat" source="south[1]" />
                 <NumberInput
-                  label="West lat"
+                  label="West long"
                   source="west[0]"
                   style={styles.inputInline}
                 />
                 <NumberInput
-                  label="West long"
+                  label="West lat"
                   source="west[1]"
                   style={styles.inputInline}
                 />
                 <NumberInput
-                  label="East lat"
+                  label="East long"
                   source="east[0]"
                   style={styles.inputInline}
                 />
-                <NumberInput label="East long" source="east[1]" />
+                <NumberInput label="East lat" source="east[1]" />
               </SimpleFormIterator>
             </ArrayInput>
           </FormTab>
