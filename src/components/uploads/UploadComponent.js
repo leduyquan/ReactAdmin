@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
-import { showNotification } from "react-admin";
-import { push } from "react-router-redux";
-import { connect } from "react-redux";
 import { AppConstant } from "../../providers/constants";
 import { CircularProgress } from "@material-ui/core";
+import myDataProvider from "../../providers/myDataProvider";
+import PropTypes from "prop-types";
+
+import { GET_ONE, withDataProvider } from "react-admin";
+
+const dataProvider = myDataProvider(AppConstant.API_URL);
 
 class UploadButton extends Component {
   constructor(props) {
@@ -38,8 +41,23 @@ class UploadButton extends Component {
           } else {
             this.setState({ file: "" });
             this.userData.set("images[]", null);
-            showNotification("Upload successfully");
-            window.location.reload();
+            const { dataProvider, dispatch, record } = this.props;
+            dataProvider(
+              GET_ONE,
+              "places-admin",
+              { id: recordId },
+              {
+                onSuccess: {
+                  notification: { body: "Upload sucessfully", level: "info" }
+                },
+                onError: {
+                  notification: {
+                    body: "Error: Upload failed.",
+                    level: "warning"
+                  }
+                }
+              }
+            );
           }
         })
         .catch(e => {
@@ -191,10 +209,9 @@ class UploadButton extends Component {
   }
 }
 
-export default connect(
-  null,
-  {
-    showNotification,
-    push
-  }
-)(UploadButton);
+UploadButton.propTypes = {
+  dataProvider: PropTypes.func.isRequired,
+  record: PropTypes.object
+};
+
+export default withDataProvider(UploadButton);

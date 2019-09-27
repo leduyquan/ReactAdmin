@@ -30,11 +30,7 @@ const App = () => (
     authProvider={authProvider}
     dataProvider={dataProvider}
   >
-    <Resource
-      name="users-admin"
-      options={displayLabel("Users")}
-      {...users}
-    />
+    <Resource name="users-admin" options={displayLabel("Users")} {...users} />
     <Resource
       name="places-admin"
       options={displayLabel("Places")}
