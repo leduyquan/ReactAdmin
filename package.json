@@ -8,7 +8,7 @@
     "ra-data-json-server": "^2.9.4",
     "ra-language-vietnamese": "^2.0.0",
     "react": "^16.8.6",
-    "react-admin": "3.0.0-alpha.1",
+    "react-admin": "3.19.12",
     "react-dom": "^16.8.6",
     "react-leaflet": "^2.4.0",
     "react-router-redux": "^4.0.8",
